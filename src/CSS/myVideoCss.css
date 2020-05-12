@@ -1,0 +1,19 @@
+    .video-js .vjs-big-play-button{
+     /*
+      播放按钮换成圆形
+     */
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border-radius: 1em;
+    }
+    .video-js:hover .vjs-big-play-button, .vjs-custom-skin > .video-js .vjs-big-play-button:focus, .vjs-custom-skin > .video-js .vjs-big-play-button:active{
+      background-color: rgba(0,0,0,0.45);
+      
+    }
+    /* 显示出开始时间和总时间 */
+    .video-js .vjs-time-control{
+        display:block;
+    }
+    /* 隐藏掉剩余时间 */
+    /* .video-js .vjs-remaining-time{display: none;} */
