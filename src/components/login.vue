@@ -1,10 +1,10 @@
 <template>
     <div class="loginContainer" >
         <div class="left" >
-            <img src="../images/loginbg518.png" alt="" style="width:100%;height:100%">
+            <img src="../images/loginbg2.jpg" alt="" style="width:100%;height:100%">
         </div>
         <div class="right" >
-            <span class="title" >视频库登录</span>
+            <span class="title" >StayhomeHub 登录</span>
             <input type="text" id="mobileInput" class="mobileInput" placeholder="请输入注册手机号或者工号" v-model="mobile">
             <input type="password" class="passwordInput"  placeholder="请输入密码" v-model="password" @keyup.enter="submit()">
             <!-- <span class="loginFalse">{{msg}}</span> -->

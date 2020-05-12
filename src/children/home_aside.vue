@@ -44,7 +44,18 @@ export default {
     data () {
         return {
             pageid:'0',
-            video:[]
+            video:[
+                {id: 8, column_name: '娱乐'},
+                {id: 9, column_name: '音乐'},
+                {id: 10, column_name: '舞蹈'},
+                {id: 11, column_name: '生活'},
+                {id: 12, column_name: '科技'},
+                {id: 13, column_name: 'Vlog'},
+                {id: 14, column_name: '鬼畜'},
+                {id: 15, column_name: '游戏'},
+                {id: 16, column_name: '动漫番剧'},
+                {id: 17, column_name: '影视'}
+            ]
         }
     },
     methods: {
@@ -66,15 +77,15 @@ export default {
     created(){
         // console.log("测试: "+this.nav.id+' '+this.isChecked)
 
-        service.get(configAPI.getvideolistnavmenu,{
+        // service.get(configAPI.getvideolistnavmenu,{
 
-        }).then((result) => {
-            let {data} = result;
-            console.log(data)
-            this.video = data.result.list;
-        }).catch((err) => {
+        // }).then((result) => {
+        //     let {data} = result;
+        //     console.log(data)
+        //     this.video = data.result.list;
+        // }).catch((err) => {
             
-        });
+        // });
     },
     watch:{
         pageid:function(newVal){

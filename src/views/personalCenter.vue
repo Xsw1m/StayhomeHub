@@ -66,7 +66,7 @@
                         <div class="myDiv" style="background-color:#ebf8f5">
                             <div class="myDiv2" >
                                 <img src="../images/myPlase-hover.png" alt="" >
-                                <span style="font-size:14px;color:#37BAA0">我的申请</span>
+                                <span style="font-size:14px;color:#37BAA0">我的点赞</span>
                             </div>
                         </div>
                         <div class="sideDiv2" ></div>                    
@@ -75,7 +75,7 @@
                         <div class="myDiv" >
                             <div class="myDiv2">
                                 <img src="../images/myPlase.png" alt="" >
-                                <span style="font-size:14px;">我的申请</span>
+                                <span style="font-size:14px;">我的点赞</span>
                             </div>
                         </div>
                         <div class="sideDiv" ></div>

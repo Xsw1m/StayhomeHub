@@ -3,7 +3,7 @@
         <!-- 路由router导航 -->
         <div class="to_time_axis" >
             <i class="el-icon-arrow-left aSty" @click="totimeaxis"></i>
-            <span>生态文化</span>
+            <span>排行榜</span>
             <i class="el-icon-arrow-right aSty" @click="tohomepage"></i>
         </div>
 <!-- 视频列表页 -->
@@ -36,7 +36,10 @@ export default {
     return {
       pageid: '47',
       name: '',
-      video: []
+      video: [
+        {id: 47, column_name: "每日", introduction: ""},
+        {id: 48, column_name: "每月", introduction: ""},
+      ]
     }
   },
   methods: {
@@ -59,15 +62,15 @@ export default {
   created () {
     // console.log("测试: "+this.nav.id+' '+this.isChecked)
 
-    service.get(configAPI.getvideoeco + 46, {
+    // service.get(configAPI.getvideoeco + 46, {
 
-    }).then((result) => {
-      const { data } = result
-      console.log(data)
-      this.video = data.result.list
-    }).catch((err) => {
-      console.log(err)
-    })
+    // }).then((result) => {
+    //   const { data } = result
+    //   console.log(data)
+    //   this.video = data.result.list
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
   },
   watch: {
     pageid: function (newVal) {

@@ -2,17 +2,9 @@
     <div class="registerContainer" >
         <!-- <h1>这是注册界面</h1> -->
         <div class="top" style="">
-
-            <router-link to="/haiUserRegister" style="text-decoration:none">
-            <div class="inUser" style="">
-                <span style="font-size:16px;color:#999999">HAIER员工</span>
+            <div class="outUser" style="">
+                <span style="font-size:16px;color:#FFFFFF">用户注册</span>
             </div>
-            </router-link>
-
-                <div class="outUser" style="">
-                    <span style="font-size:16px;color:#FFFFFF">外部用户</span>
-                </div>
-
         </div>
         <div class="main" style="">
            <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
@@ -51,7 +43,7 @@
                 <img v-if="checked == true" @click="on3();"  src="../images/autologin-on.png" alt="" >
                 <div class="agreement">
                     <span style="font-size:12px;color:#999999;line-height:1">已阅读并同意</span>
-                    <a href="" style="color:#37BAA0;font-size:12px;line-height:1;text-decoration: none" @click.prevent="userAg()">《用户注册协议》</a>
+                    <a href="" style="color:#37BAA0;font-size:12px;line-height:1;text-decoration: none" @click.prevent="userAgtodo()">《用户注册协议》</a>
                 </div>
             </div>
           </el-form>
@@ -322,7 +314,7 @@ export default {
         width:220px;height:60px;background:#E5EEEC;display:flex;align-items:center;justify-content:center
     }
     .outUser{
-        width:220px;height:60px;background:#37BAA0;display:flex;align-items:center;justify-content:center
+        width:440px;height:60px;background:#37BAA0;display:flex;align-items:center;justify-content:center
     }
     /* .eyeDiv{
         width:70px;height:55px;border-bottom: 1px #37BAA0 solid;box-sizing:border-box;padding:32px 9px 12px 43px;display:flex

@@ -221,7 +221,7 @@ import Watermark from '../watermark'
     },
     mounted: function () {
         let watermark = localStorage.getItem("real_name")
-        Watermark.set('History:' + watermark)
+        // Watermark.set('History:' + watermark)
     },
     destroyed(){
       clearInterval(this.myInterval)

@@ -36,7 +36,7 @@
                     
                     <!-- 视频内右下角的logo -->
                     <div class="floatLogo">
-                        <img src="../images/haiVideoLogo.png" alt="">
+                        <img src="../images/stayhome.png" alt="">
                     </div>
                 </div>
 
@@ -372,7 +372,7 @@ export default {
         bottom: 25px;
         right: 20px;
         width:13.18vw;
-        height: 2.23vw
+        height: 5.23vw
     }
     .floatLogo img{
         width: 100%;

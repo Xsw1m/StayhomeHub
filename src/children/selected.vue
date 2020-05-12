@@ -72,10 +72,10 @@
             <!-- 2 -->
         </div>
 
-        <!----- ------------- 宣传资料   --------------------->
+        <!----- ------------- 娱乐新闻   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav1_focus.png"></div>
-            <div class="nav_right"><span>宣传资料</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toPropaganda">更多</a></div>
+            <div class="nav_right"><span>娱乐新闻</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toPropaganda">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -130,10 +130,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 链群动态   --------------------->
+        <!----- ------------- 音乐music   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav2_focus.png"></div>
-            <div class="nav_right"><span>链群动态</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="todynamics">更多</a></div>
+            <div class="nav_right"><span>音乐music</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="todynamics">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -188,10 +188,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 管理学堂   --------------------->
+        <!----- ------------- 舞蹈show   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav3_focus.png"></div>
-            <div class="nav_right"><span>管理学堂</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toMschool">更多</a></div>
+            <div class="nav_right"><span>舞蹈show</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toMschool">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -246,10 +246,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- Haier记录   --------------------->
+        <!----- ------------- 生活live   --------------------->
         <div class="propaganda_head" style="line-height:1;" v-if="false">
             <div class="nav_left"><img src="../img/nav4_focus.png"></div>
-            <div class="nav_right"><span>Haier记录</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toHaierRecord">更多</a></div>
+            <div class="nav_right"><span>生活live</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toHaierRecord">更多</a></div>
             
         </div>
         <div class="propaganda_body" v-if="false">
@@ -304,10 +304,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 历程节点   --------------------->
+        <!----- ------------- 科技数码   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav5_focus.png"></div>
-            <div class="nav_right"><span>历程节点</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toProcessNode">更多</a></div>
+            <div class="nav_right"><span>科技数码</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toProcessNode">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -362,10 +362,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 人单合一   --------------------->
+        <!----- ------------- Vlog记录   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav6_focus.png"></div>
-            <div class="nav_right"><span>人单合一</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toPOOP">更多</a></div>
+            <div class="nav_right"><span>Vlog记录</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toPOOP">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -420,10 +420,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 海外资料   --------------------->
+        <!----- ------------- 鬼畜   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav7_focus.png"></div>
-            <div class="nav_right"><span>海外资料</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toinformation">更多</a></div>
+            <div class="nav_right"><span>鬼畜</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toinformation">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -478,10 +478,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 空镜素材   --------------------->
+        <!----- ------------- 游戏   --------------------->
         <div class="propaganda_head" style="line-height:1;">
             <div class="nav_left"><img src="../img/nav8_focus.png"></div>
-            <div class="nav_right"><span>空镜素材</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="tomaterial">更多</a></div>
+            <div class="nav_right"><span>游戏</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="tomaterial">更多</a></div>
             
         </div>
         <div class="propaganda_body">
@@ -536,10 +536,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 品牌logo   --------------------->
+        <!----- ------------- 动漫番剧   --------------------->
         <div class="propaganda_head" style="line-height:1;" v-if="false">
             <div class="nav_left"><img src="../img/nav9_focus.png"></div>
-            <div class="nav_right"><span>品牌logo</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="tologo">更多</a></div>
+            <div class="nav_right"><span>动漫番剧</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="tologo">更多</a></div>
             
         </div>
         <div class="propaganda_body" v-if="false">
@@ -594,10 +594,10 @@
                 </div>
             </div>
         </div>
-        <!----- ------------- 其他   --------------------->
+        <!----- ------------- 影视   --------------------->
         <div class="propaganda_head" style="line-height:1;" v-if="false">
             <div class="nav_left"><img src="../img/nav10_focus.png"></div>
-            <div class="nav_right"><span>其他</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toother">更多</a></div>
+            <div class="nav_right"><span>影视</span><a class="aSty" style="color:rgba(55,186,160,1);float:right;" @click="toother">更多</a></div>
             
         </div>
         <div class="propaganda_body" v-if="false">
@@ -679,6 +679,9 @@ export default {
     data () {
         return {
             bannerimg:[ 
+                {id: 0, cover: '../../src/img/banner1.jpg'},
+                {id: 1, cover: '../../src/img/banner2.jpg'},
+                {id: 2, cover: '../../src/img/banner3.jpg'}
             ],
             checkFloor:0,
             isFloor:0,
@@ -687,7 +690,98 @@ export default {
             operate:'',
             status:0,
             item:'',
-            selection: [],
+            selection: [
+                {
+                    audit_explain: "",
+                    audit_time: "2019-10-31 11:20:32",
+                    column_name: "大会用片",
+                    cover: "../../src/img/undefinds_img.png",
+                    cover_s: "../../src/img/undefinds_img.png",
+                    id: 15766,
+                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
+                    is_collect: false,
+                    shooting_time: "2019-10-19",
+                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
+                    storage_class: 0,
+                    title: "测试首页精选",
+                    union_id: 0,
+                    user_watch_jurisdiction: 1,
+                    video_duration: "00:03:44",
+                    weight: 0
+                },
+                {
+                    audit_explain: "",
+                    audit_time: "2019-10-31 11:20:32",
+                    column_name: "大会用片",
+                    cover: "../../src/img/undefinds_img.png",
+                    cover_s: "../../src/img/undefinds_img.png",
+                    id: 137,
+                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
+                    is_collect: false,
+                    shooting_time: "2019-10-19",
+                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
+                    storage_class: 0,
+                    title: "测试首页精选",
+                    union_id: 0,
+                    user_watch_jurisdiction: 1,
+                    video_duration: "00:03:44",
+                    weight: 0
+                },
+                {
+                    audit_explain: "",
+                    audit_time: "2019-10-31 11:20:32",
+                    column_name: "大会用片",
+                    cover: "../../src/img/undefinds_img.png",
+                    cover_s: "../../src/img/undefinds_img.png",
+                    id: 16002,
+                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
+                    is_collect: false,
+                    shooting_time: "2019-10-19",
+                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
+                    storage_class: 0,
+                    title: "测试首页精选",
+                    union_id: 0,
+                    user_watch_jurisdiction: 1,
+                    video_duration: "00:03:44",
+                    weight: 0
+                },
+                {
+                    audit_explain: "",
+                    audit_time: "2019-10-31 11:20:32",
+                    column_name: "大会用片",
+                    cover: "../../src/img/undefinds_img.png",
+                    cover_s: "../../src/img/undefinds_img.png",
+                    id: 16004,
+                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
+                    is_collect: false,
+                    shooting_time: "2019-10-19",
+                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
+                    storage_class: 0,
+                    title: "测试首页精选",
+                    union_id: 0,
+                    user_watch_jurisdiction: 1,
+                    video_duration: "00:03:44",
+                    weight: 0
+                },
+                {
+                    audit_explain: "",
+                    audit_time: "2019-10-31 11:20:32",
+                    column_name: "大会用片",
+                    cover: "../../src/img/undefinds_img.png",
+                    cover_s: "../../src/img/undefinds_img.png",
+                    id: 16005,
+                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
+                    is_collect: false,
+                    shooting_time: "2019-10-19",
+                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
+                    storage_class: 0,
+                    title: "测试首页精选",
+                    union_id: 0,
+                    user_watch_jurisdiction: 1,
+                    video_duration: "00:03:44",
+                    weight: 0
+                },
+            ],
             propaganda: [],
             dynamics: [],
             Mschool: [],
@@ -765,15 +859,15 @@ export default {
         },
         bannertovideo(data) {
             console.log(data)
-            if(data.user_watch_jurisdiction === 1){
-                var person = {
-                    videoid: data.id
-                }
-                this.$router.push({name:'video',query:person})
-            }else{
-                this.$refs.child.chang()
-                this.videoId = data.id
-            }
+            // if(data.user_watch_jurisdiction === 1){
+            //     var person = {
+            //         videoid: data.id
+            //     }
+            //     this.$router.push({name:'video',query:person})
+            // }else{
+            //     this.$refs.child.chang()
+            //     this.videoId = data.id
+            // }
         },
         //跳转下载弹窗的方法
         downpopup(data){
@@ -801,26 +895,26 @@ export default {
     created(){
         this.judge()
         // 获取焦点图
-        service.get(configAPI.bannerimg,{
+        // service.get(configAPI.bannerimg,{
 
-        }).then((result) => {
-            console.log('banner: ')
-            this.bannerimg = result.data.result
-            console.log(this.bannerimg)
-            console.log('end')
-        }).catch((err) => {
+        // }).then((result) => {
+        //     console.log('banner: ')
+        //     this.bannerimg = result.data.result
+        //     console.log(this.bannerimg)
+        //     console.log('end')
+        // }).catch((err) => {
             
-        });
+        // });
         //获取首页精选栏目
-        service.get(configAPI.gethomepageselected,{
+        // service.get(configAPI.gethomepageselected,{
                 
-            }).then((result) => {
-                // let {data} = result;
-                this.selection = result.data.result.list
-                // console.log(this.selection)
-            }).catch((err) => {
+        //     }).then((result) => {
+        //         // let {data} = result;
+        //         this.selection = result.data.result.list
+        //         // console.log(this.selection)
+        //     }).catch((err) => {
                 
-            });
+        //     });
         //获取首页宣传栏目
         service.get(configAPI.getvideolist,{
                 params: {
@@ -847,7 +941,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页管理学堂
+        //获取首页舞蹈show
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 10,
@@ -860,7 +954,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页Haier记录
+        //获取首页生活live
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 11,
@@ -873,7 +967,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页历程节点
+        //获取首页科技数码
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 12,
@@ -886,7 +980,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页人单合一
+        //获取首页Vlog记录
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 13,
@@ -899,7 +993,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页海外资料
+        //获取首页鬼畜
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 14,
@@ -912,7 +1006,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页空镜素材
+        //获取首页游戏
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 15,
@@ -925,7 +1019,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页品牌logo
+        //获取首页动漫番剧
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 44,
@@ -938,7 +1032,7 @@ export default {
             }).catch((err) => {
                 
             });
-        //获取首页其他
+        //获取首页影视
         service.get(configAPI.getvideolist,{
                 params: {
                     'column_id': 16,

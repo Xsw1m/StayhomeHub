@@ -204,13 +204,13 @@ export default {
 /* logo配置 */
 .logo{
     cursor:pointer;
-    background:url('../img/logo.png');
+    background:url('../img/stayhome.png');
     background-repeat:no-repeat;
     background-size:100% 100%;
     /* width: 9.6875%; */
-    height: 2.0833vw;
+    height: 2.6833vw;
     width: 7.0457176%;
-    margin: auto 22.6041667% auto 4.16667%;
+    margin: auto 22.1041667% auto 4.66667%;
     /* width: 487px;
     height: 144px; */
 }
