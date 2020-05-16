@@ -11,7 +11,8 @@ const Axios = axios.create({
 // const  声明一个无法更改的常量
 const service = axios.create({
   // baseURL: process.env.BASE_URL,  // api的base_url
-  timeout: 5000 // 请求超时时间
+  baseURL: "/api",
+  timeout: 5000, // 请求超时时间
 })
 
 service.interceptors.request.use(function (config) { // 每次请求时会从localStorage中获取token

@@ -31,10 +31,10 @@ import Vue from 'vue'
 import configAPI from '../API/configAPI.js'
 import homePageVue from '../homepage.vue'
 import service from '../API/request.js'
-import Axios from 'axios'
-
-const axios = require('axios')
-
+// import Axios from 'axios'
+import Axios from '../API/http.js'
+// const axios = require('axios')
+import Qs from 'qs'
 export default {
 
   name: 'login', // 这个应该是声明login组件的名称name?不是
@@ -53,19 +53,21 @@ export default {
       console.log(this.password)
       // axios.post('http://39.105.29.12:8585/app/v1/login',{
       console.log(configAPI.login_url)
-      Axios.get(configAPI.login_url, {
-        params: {
-          account: this.mobile,
+      let params = {
+          username: this.mobile,
           password: this.password
-        }
-      }).then(result => {
+      }
+      Axios.post(configAPI.login_url, 
+        Qs.stringify(params)
+      ).then(result => {
         // console.log(result)
         const { data } = result
-        // console.log(data);
-        var Authorization = data.result.user_session
-        console.log(Authorization)
+        console.log('登陆成功', data)
+        var Authorization = data.result.access_token
+        // console.log(Authorization)
         localStorage.setItem('authorization_token', Authorization)
-        localStorage.setItem('real_name', data.result.real_name)
+        localStorage.setItem('real_name', data.result.name)
+        localStorage.setItem('email', data.result.email)
         localStorage.setItem('avatar', data.result.avatar)
         localStorage.setItem('phone', data.result.phone)
         // this.msg = data.message
@@ -73,10 +75,10 @@ export default {
           this.$router.push({ path: '/selected' })
         }
       }).catch((err) => {
-        console.log(err.response)
-        if (err.response.data.code === 400) {
-          this.$message.error(err.response.data.msg)
-        }
+        console.log('登录出错', err)
+        // if (err.data.code === 401) {
+        //   this.$message.error(err.message)
+        // }
       })
     },
     changelabel () {

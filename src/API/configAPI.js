@@ -1,7 +1,7 @@
 // const base_url = 'http://39.105.29.12:8020/member/v1'// 基础的url
 import base_url from '../API/BaseApi.js'
 
-const login_url = base_url + '/user/login' // 登录所需要的接口
+const login_url = '/user/login' // 登录所需要的接口
 const PlayerRecord_url = base_url + '/browser/list' // 获取播放记录
 const del_playerRecord_url = base_url + '/browser/delete/' // 删除指定id的浏览记录
 const collOneVideo_url = base_url + '/collection/operate?' // 收藏指定id的视频

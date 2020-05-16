@@ -19,6 +19,21 @@ module.exports = {
         // filename:'[name].js'   
         // publicPath:'dist/'
     },
+    devServer: {
+        open: true, //是否自动弹出浏览器页面
+        host: "localhost",
+        port: "3000",
+        proxy: {
+            '/api': {
+                // target:'http://192.168.1.165:8080/app/v1',
+                target:'http://39.106.98.246/api/v1',
+                changeOrigin:true,
+                pathRewrite:{
+                    '^/api': ''
+                }
+            },
+        }
+    },
     plugins:[   //所有webpack插件的配置节点
         // new CleanWebpackPlugin(),  //删除上次打包的文件。默认目录为.dist  windows会出现bug，权限的问题
         new htmlWebpackPlugin({
