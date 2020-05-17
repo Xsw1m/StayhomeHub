@@ -43,6 +43,11 @@ export default {
             avatar:'',  
         }
     },
+    mounted() {
+        this.$bus.$on('getUserInfo', ()=> {
+            this.getUserinfo()
+        })
+    },
     methods: {
         tonewsMid(){
             this.$router.replace('/newsMid')
@@ -66,6 +71,13 @@ export default {
             }).catch((err) => {
                 
             });
+        },
+        getUserinfo() {
+            this.avatar = localStorage.getItem("avatar")
+            this.user_name = localStorage.getItem("real_name")
+            this.user_mobile = localStorage.getItem("phone")
+            console.log('全局修改个人信息成功！！！！！！')
+            location.reload()
         }
     },
     created(){
@@ -74,7 +86,7 @@ export default {
         // this.phone = localStorage.getItem("phone")
         this.user_name = localStorage.getItem("real_name")
         this.user_mobile = localStorage.getItem("phone")
-    },
+    }
 }
 </script>
 <style scoped>

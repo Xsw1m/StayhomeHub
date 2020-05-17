@@ -89,8 +89,7 @@ export default {
                 // this.getUserInfor()
                 // this.$emit('getUserInfor', result)
                 // parent.location.reload()
-                // this.$bus.$emit('change')
-
+                this.$bus.$emit('getUserInfo')
             })
         }
     },
