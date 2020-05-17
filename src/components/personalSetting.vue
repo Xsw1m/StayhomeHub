@@ -27,7 +27,7 @@
                             style="width:100%;height:100%">
                             <img v-if="imageUrl" :src="imageUrl" class="avatar" style="width:100%;height:100%;border-radius:50%;">
                             </el-upload> -->
-                            <upImgTemplate class="avatar-uploader-my" @getImUrl="getImUrl" v-bind:parentUrl="imageUrl"  ref="child"
+                            <upImgTemplate class="avatar-uploader-my" @getImUrl="getImUrl" @getUserInfor="getUserInfor" v-bind:parentUrl="imageUrl"  ref="child"
                             style="background-color:#faebd7; border-radius: 50%;width:100%;height:100%"></upImgTemplate>
                         </div>
                         <div id="oval" @click="useSonMe()">
@@ -37,7 +37,7 @@
                 
                     <div style="width:1.15vw;height:4.58vw;background-color:#F4F7FD"></div>
                     <div style="height:4.58vw;display:flex;align-items:center">
-                        <span style="font-size:0.73vw;color:#999999">姓名：{{name}}</span>
+                        <span style="font-size:0.73vw;color:#999999">姓名：{{ name }}</span>
                         <!-- <input class="nameInput" type="text" v-model="name"> -->
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <div style="width:60.5%;height:100%">
                             <span style="font-size:0.73vw;color:#333333">{{phone}}</span>
                         </div>
-                        <div style="width:18.1%;height:100%;display:flex;justify-content:flex-end ">
+                        <div style="width:18.1%;height:100%;display:flex;justify-content:flex-end;">
                             <a href="#" style="font-size:0.73vw;color:#37BAA0" @click.prevent ="changMo()">修改手机</a>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         <div style="width:60.5%;height:100%">
                             <span style="font-size:0.73vw;color:#333333">登录网站所需密码</span>
                         </div>
-                        <div style="width:18.1%;height:100%;display:flex;justify-content:flex-end ">
+                        <div style="width:18.1%;height:100%;display:flex;justify-content:flex-end; display: none;">
                             <a href="#" style="font-size:0.73vw;color:#37BAA0" @click.prevent="retrievePassword()">修改密码</a>
                         </div>
                     </div>
@@ -212,25 +212,26 @@ export default {
                 let params = Qs.stringify({
                     avatar:this.imageUrl,
                     gender:this.radio,
-                    birth:this.Birthday
+                    birthday:this.Birthday
                 })
-                service.put(configAPI.changUserInfor_url + params,{
+                service.patch(configAPI.changUserInfor_url + params,{
 
                 }).then(result=>{
                     console.log(result)
-                    this.$message.success(result.data.msg)
-                    // this.getUserInfor()
+                    this.$message.success('修改个人信息成功', result.data.message)
+                    this.getUserInfor()
                 })
         },
         getUserInfor(){
+            console.log('查询个人信息')
             service.get(configAPI.getUserDetails_url,{
 
             }).then(result =>{
                 console.log(result)
-                // if(result.data.result.birth == null){
+                // if(result.data.result.birthday == null){
                 //     console.log(11)
                 // }
-                // console.log(result.data.result.birth)
+                // console.log(result.data.result.birthday)
                 if(result.data.result.avatar == ''){
                     this.WatchImageUrl++
                     // console.log(this.WatchImageUrl + 'xx')
@@ -240,20 +241,20 @@ export default {
                 }else{
                     this.radio = result.data.result.gender
                 }
-                if(result.data.result.birth == null){
+                if(result.data.result.birthday == null){
                     this.WatchBirthday++
                 }else{
-                    this.Birthday = result.data.result.birth.split(' ')[0].replace(/-/g,'/')
+                    this.Birthday = result.data.result.birthday.split(' ')[0].replace(/-/g,'/')
                 }
-                this.name = result.data.result.real_name,
+                this.name = result.data.result.name,
                 this.phone = result.data.result.phone,
                 this.imageUrl = result.data.result.avatar,
                 
                 
                 
-                // console.log(result.data.result.birth)
+                // console.log(result.data.result.birthday)
                 // console.log(this.Birthday)
-                // console.log(result.data.result.birth.split(' ')[0].replace(/-/g,'/'))
+                // console.log(result.data.result.birthday.split(' ')[0].replace(/-/g,'/'))
                 localStorage.setItem("avatar",this.imageUrl)
                 // if(localStorage.getItem("avatar") == ''){
                 //     this.imageUrl = '../images/pom.png'

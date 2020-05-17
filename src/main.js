@@ -166,6 +166,8 @@ Vue.use(VueClipboard)
 
 // Vue.prototype.$video = Video
 
+// 原型上添加bus属性-->通信控制
+
 var vm = new Vue({
   el: '#app',
   data: {},

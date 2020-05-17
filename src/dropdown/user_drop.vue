@@ -53,7 +53,7 @@ export default {
         },
         loginout(){
            
-            service.get(configAPI.logout,{
+            service.delete(configAPI.logout,{
                 
             }).then((result) => {
                 let status = result.data.code

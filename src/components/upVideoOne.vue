@@ -233,7 +233,7 @@ import region from '../json/region.json'
 import service from '../API/request';
 import configAPI from '../API/configAPI';
 import Qs from 'qs'
-import axios from 'axios';
+import Axios from '../API/http.js'
 
 //导入组件
 import upImgTemplate from '../components/upImgTemplate.vue'

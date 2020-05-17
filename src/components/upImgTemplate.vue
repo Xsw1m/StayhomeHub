@@ -17,7 +17,7 @@
 </template>
 <script>
 import Qs from 'qs'
-import axios from 'axios';
+import Axios from '../API/http.js'
 // 导入图片剪裁的组件
 import cutPopup from './popup/cutPopup.vue'
 export default {

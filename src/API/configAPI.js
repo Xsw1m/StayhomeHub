@@ -1,58 +1,60 @@
 // const base_url = 'http://39.105.29.12:8020/member/v1'// 基础的url
 import base_url from '../API/BaseApi.js'
 
-const login_url = '/user/login' // 登录所需要的接口
-const PlayerRecord_url = base_url + '/browser/list' // 获取播放记录
-const del_playerRecord_url = base_url + '/browser/delete/' // 删除指定id的浏览记录
-const collOneVideo_url = base_url + '/collection/operate?' // 收藏指定id的视频
-const getCollRecord_url = base_url + '/collection/list' // 获取所有的收藏记录
-const del_allcoll = base_url + '/collection/delete/all' // 删除所有的收藏记录
-const getVideoInfor_url = base_url + '/video/details/' // 获取指定id的视频的所有信息
-const upVideoprogress_url = base_url + '/browser/record' // 定时记录视频观看进度
-const recommend_url = base_url + '/video/details/recommend/' // 视频详情页下方的推荐
-const getDownRecord_url = base_url + '/download/record/list' // 获取所有的下载记录
-const delDownRecord_url = base_url + '/download/record/delete/' // 删除指定的某一条下载记录
-const delAllDownRecord_url = base_url + '/download/record/delete/all' // 删除所有的下载记录
-const getVideoAdmin_url = base_url + '/video/user/list' // 获取视频管理页面的所有的信息
-const delVideoAdmin_url = base_url + '/video/delete/' // 删除视频管理页面的某一条指定的信息
-const getVideoAdminClass_url = base_url + '/column/list' // 获取视频管理页面上面的视频分类
-const getAllNews_url = base_url + '/message/list' // 获取所有的消息通知
-const checkNew_url = base_url + '/message/check/' // 已读指定ID的消息
-const checkAllNews_url = base_url + '/message/check/all' // 一键已读所有消息
-const getUserDetails_url = base_url + '/user/details' // 获取本人信息
-const userRegister_url = base_url + '/user/register?' // 用户注册
-const checkMesscode_url = base_url + '/user/code/validate' // 检验验证码是否正确
-const getMobileCode_url = base_url + '/user/code' // 获取验证码
-const changUserInfor_url = base_url + '/user/update/info?' // 修改个人信息
-const changMobile_url = base_url + '/user/update/phone?' // 修改个人的手机号
-const changPassword_url = base_url + '/user/update/pwd?' // 修改手机密码
-const addDown_url = base_url + '/download/apply/create?' // 新增下载申请
-const addWatch_url = base_url + '/watch/apply/create?' // 新增观看申请
-const getAllUpVideoClass_url = base_url + '/column/home/list' // 视频上传页面中获取视频分类中的一级类
-const getAllUpVideoTwoClass_url = base_url + '/column/list/' // 视频上传页面中获取视频分类中的二级类
-const uploadVideo_url = base_url + '/video/create?' // 用户上传视频
-const downVideo_url = base_url + '/video/download/' // 下载某一个视频
-const getAdminVideoInfor = base_url + '/video/details/update/' // 从视频管理页面跳转编辑,根据视频id获取视频的详细信息
-const changVideoInfor = base_url + '/video/update/' // 重新编辑视频的详细信息
-const getAdminVideoInfor_url = base_url + '/video/details/control/' // 从消息中心点击观看
+const login_url = '/user/login' // 登录所需要的接口 √
+const PlayerRecord_url = '/browser/list' // 获取播放记录
+const del_playerRecord_url = '/browser/delete/' // 删除指定id的浏览记录
+const collOneVideo_url = '/collection/operate?' // 收藏指定id的视频
+const getCollRecord_url = '/collection/list' // 获取所有的收藏记录
+const del_allcoll = '/collection/delete/all' // 删除所有的收藏记录
+const getVideoInfor_url = '/video/details/' // 获取指定id的视频的所有信息
+const upVideoprogress_url = '/browser/record' // 定时记录视频观看进度
+const recommend_url = '/video/details/recommend/' // 视频详情页下方的推荐
+const getDownRecord_url = '/download/record/list' // 获取所有的下载记录
+const delDownRecord_url = '/download/record/delete/' // 删除指定的某一条下载记录
+const delAllDownRecord_url = '/download/record/delete/all' // 删除所有的下载记录
+const getVideoAdmin_url = '/video/user/list' // 获取视频管理页面的所有的信息
+const delVideoAdmin_url = '/video/delete/' // 删除视频管理页面的某一条指定的信息
+const getVideoAdminClass_url = '/column/list' // 获取视频管理页面上面的视频分类
+const getAllNews_url = '/message/list' // 获取所有的消息通知
+const checkNew_url = '/message/check/' // 已读指定ID的消息
+const checkAllNews_url = '/message/check/all' // 一键已读所有消息
+const getUserDetails_url = '/user/details' // 获取本人信息 √
+const userRegister_url = '/user/register?' // 用户注册 √
+const checkMesscode_url = '/user/code/validate' // 检验验证码是否正确 √
+const getMobileCode_url = '/user/code' // 获取验证码 √
+const changUserInfor_url = '/user/update/info?' // 修改个人信息 √
+const changMobile_url = '/user/update/phone?' // 修改个人的手机号 √
+const changPassword_url = '/user/update/pwd?' // 修改手机密码 √
+const addDown_url = '/download/apply/create?' // 新增下载申请
+const addWatch_url = '/watch/apply/create?' // 新增观看申请
+const getAllUpVideoClass_url = '/column/home/list' // 视频上传页面中获取视频分类中的一级类
+const getAllUpVideoTwoClass_url = '/column/list/' // 视频上传页面中获取视频分类中的二级类
+const uploadVideo_url = '/video/create?' // 用户上传视频
+const downVideo_url = '/video/download/' // 下载某一个视频
+const getAdminVideoInfor = '/video/details/update/' // 从视频管理页面跳转编辑,根据视频id获取视频的详细信息
+const changVideoInfor = '/video/update/' // 重新编辑视频的详细信息
+const getAdminVideoInfor_url = '/video/details/control/' // 从消息中心点击观看
 
-const getvideolistnavmenu = base_url + '/column/home/list'
-const getvideoeco = base_url + '/column/list/'
-const getcategory = base_url + '/column/list/'
-const getvideolist = base_url + '/video/list'
-const gethomepageselected = base_url + '/video/list/selection'
-const gettimeaxis = base_url + '/video/time/search'
-const logout = base_url + '/user/logout'
-const getsearch_hot = base_url + '/video/list/hot'
-const getsearch_recommend = base_url + '/video/list/recommend'
-const postcollection = base_url + '/collection/operate?'
-const bannerimg = base_url + '/banner/list'
+const getvideolistnavmenu = '/column/home/list'
+const getvideoeco = '/column/list/'
+const getcategory = '/column/list/'
+const getvideolist = '/video/list'
+const gethomepageselected = '/video/list/selection'
+const gettimeaxis = '/video/time/search'
+const logout = '/user/logout'
+const getsearch_hot = '/video/list/hot'
+const getsearch_recommend = '/video/list/recommend'
+const postcollection = '/collection/operate?'
+const bannerimg = '/banner/list'
 // 分享视频
-const share_apply = base_url + '/share/apply/create'
-const share_validate = base_url + '/share/apply/validate'
-const share_activate = base_url + '/share/apply/activate'
-const share_details = base_url + '/share/video/details'
-const share_download = base_url + '/share/video/download'
+const share_apply = '/share/apply/create'
+const share_validate = '/share/apply/validate'
+const share_activate = '/share/apply/activate'
+const share_details = '/share/video/details'
+const share_download = '/share/video/download'
+// 图片上传本地服务
+const uploadImages = '/images'
 
 // 需要让外部拿到
 export default {
@@ -108,5 +110,7 @@ export default {
   share_validate: share_validate,
   share_activate: share_activate,
   share_details: share_details,
-  share_download: share_download
+  share_download: share_download,
+
+  uploadImages: uploadImages
 }

@@ -63,17 +63,26 @@ export default {
         // console.log(result)
         const { data } = result
         console.log('登陆成功', data)
+        if (data.code === 200) {
+          this.$router.push({ path: '/selected' })
+        } else {
+          console.log('出错了！！！')
+          this.$message.error(data.message)
+        }
         var Authorization = data.result.access_token
         // console.log(Authorization)
         localStorage.setItem('authorization_token', Authorization)
-        localStorage.setItem('real_name', data.result.name)
-        localStorage.setItem('email', data.result.email)
-        localStorage.setItem('avatar', data.result.avatar)
-        localStorage.setItem('phone', data.result.phone)
+        localStorage.setItem('real_name', data.result.user_info.name)
+        localStorage.setItem('email', data.result.user_info.email)
+        localStorage.setItem('avatar', data.result.user_info.avatar)
+        localStorage.setItem('phone', data.result.user_info.phone)
         // this.msg = data.message
-        if (data.code == 200) {
-          this.$router.push({ path: '/selected' })
-        }
+        // if (data.code === 200) {
+        //   this.$router.push({ path: '/selected' })
+        // } else {
+        //   console.log('出错了！！！')
+        //   this.$message.error(data.message)
+        // }
       }).catch((err) => {
         console.log('登录出错', err)
         // if (err.data.code === 401) {

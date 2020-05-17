@@ -79,6 +79,7 @@
 <script>
 import { setTimeout } from 'timers';
 import service from '../API/request';
+import Axios from '../API/http.js'
 import configAPI from '../API/configAPI';
 import Qs from 'qs'
 
@@ -94,6 +95,7 @@ export default {
                 oldMobile:'',
                 oldMobileCode:'',
                 newMobile:'',
+                key: '',
                 newMobileCode:''
             },
             rules:{
@@ -119,6 +121,7 @@ export default {
                         this.ruleForm.oldMobile = '',
                         this.ruleForm.oldMobileCode = '',
                         this.ruleForm.newMobile = '',
+                        this.ruleForm.key = '',
                         this.ruleForm.newMobileCode = ''
                     },2000)
                 }
@@ -135,21 +138,21 @@ export default {
             }if(this.ruleForm.oldMobileCode == ''){
                 console.log('为空')
             }else{
-                service.get(configAPI.checkMesscode_url,{
-                    params:{
-                        phone:this.ruleForm.oldMobile,
-                        code:this.ruleForm.oldMobileCode
-                    }
-                }).then(result=>{
-                    console.log(result)
+                // service.get(configAPI.checkMesscode_url,{
+                //     params:{
+                //         phone:this.ruleForm.oldMobile,
+                //         code:this.ruleForm.oldMobileCode
+                //     }
+                // }).then(result=>{
+                    // console.log(result)
                     this.active ++
                     this.show = true,
                     this.count = '',
                     this.timer = null
-                }).catch((err)=>{
-                    console.log(err.msg)
-                    this.$message.error(err.msg)
-                })
+                // }).catch((err)=>{
+                //     console.log(err.msg)
+                //     this.$message.error(err.msg)
+                // })
             }
         },
         submitForm2() {
@@ -159,17 +162,23 @@ export default {
                 console.log('为空')
             }else{
                 let params = Qs.stringify({
-                    old_phone:this.ruleForm.oldMobile,
-                    old_code:this.ruleForm.oldMobileCode,
-                    new_phone:this.ruleForm.newMobile,
-                    new_code:this.ruleForm.newMobileCode,
+                    phone:this.ruleForm.newMobile,
+                    verification_key: this.ruleForm.key,
+                    verification_code:this.ruleForm.newMobileCode,
                 })
-                service.put(configAPI.changMobile_url + params,{
-
+                service.put(configAPI.changMobile_url, {
+                    phone:this.ruleForm.newMobile,
+                    verification_key: this.ruleForm.key,
+                    verification_code:this.ruleForm.newMobileCode,
                 }).then(result=>{
                     console.log(result)
-                    this.active++
-                    localStorage.setItem("phone",this.ruleForm.newMobile)
+                    if (result.data.code === 200) {
+                        console.log('修改手机号成功', result)
+                        this.active++
+                        localStorage.setItem("phone",this.ruleForm.newMobile)
+                    } else {
+                        this.$message.error(result.data.msg)
+                    }
                 }).catch((err)=>{
                     console.log(err.msg)
                     this.$message.error(err.msg)
@@ -179,6 +188,7 @@ export default {
         resetForm() {
             this.ruleForm.oldMobile = '',
             this.ruleForm.oldMobileCode = '',
+            this.ruleForm.key = '',
             this.ruleForm.newMobile = '',
             this.ruleForm.newMobileCode = ''
             this.active = 1
@@ -187,19 +197,21 @@ export default {
             if(!(/^1[3-9][0-9]{9}$/.test(this.ruleForm.oldMobile))){
                 console.log('手机号格式不正确')
             }else{
+                let params = {
+                    phone:this.ruleForm.oldMobile
+                }
                 //获取手机验证码
-                service.get(configAPI.getMobileCode_url,{
-                    params:{
-                        phone:this.ruleForm.oldMobile
-                    }
-                }).then(result=>{
+                Axios.post(configAPI.getMobileCode_url,
+                    Qs.stringify(params)
+                ).then(result=>{
                     console.log(result)
+                    this.ruleForm.key = result.data.result.key
                 })
 
                 this.$message.success({
                     dangerouslyUseHTMLString: true,
                     duration:6000,
-                    message:'手机验证码服务尚未开通，默认手机验证码为 <strong>" 987023 "</strong>'
+                    message:'手机验证码服务尚未开通，默认手机验证码为 <strong>" 1234 "</strong>'
                 })
 
                 this.shoeTip = false

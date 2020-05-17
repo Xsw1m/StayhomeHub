@@ -124,7 +124,7 @@
     </div>
 </template>
 <script>
-import Axios from 'axios';
+import Axios from '../API/http.js'
 import region from '../json/region.json'
 import service from '../API/request';
 import configAPI from '../API/configAPI';

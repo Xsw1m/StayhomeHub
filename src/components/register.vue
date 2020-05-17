@@ -23,9 +23,6 @@
                 <el-form-item prop="email" style="margin-bottom:0px;height:55px;width:100%">
                     <el-input class="outUserInput" v-model="ruleForm.email" placeholder="请输入邮箱" ></el-input>
                 </el-form-item>
-                <el-form-item prop="invitationCode" style="margin-bottom:0px;height:55px;width:100%">
-                    <el-input class="outUserInput" v-model="ruleForm.invitationCode" placeholder="请输入邀请码"></el-input>
-                </el-form-item>
                 <div style="display:flex;">
                     <el-form-item prop="mobileMessCode" style="margin-bottom:0px;height:55px;display:flex;width:75%">
                         <el-input class="outUserInput" v-model="ruleForm.mobileMessCode" placeholder="请输入短信验证码" style="width:100%"></el-input>
@@ -67,7 +64,7 @@
 import service from '../API/request'
 import configAPI from '../API/configAPI'
 import Qs from 'qs'
-import Axios from 'axios'
+import Axios from '../API/http.js'
 export default {
   data () {
     var validatePass = (rule, value, callback) => {
@@ -119,10 +116,11 @@ export default {
       ruleForm: {
         name: '',
         mobile: '',
+        key: '',
+        verification_code: '',
         password: '',
         passwordag: '',
         email: '',
-        invitationCode: '',
         mobileMessCode: ''
       },
       rules: {
@@ -141,9 +139,9 @@ export default {
         email: [
           { validator: validatePass2, trigger: 'blur' }
         ],
-        invitationCode: [
-          { required: true, message: '请填写邀请码', trigger: 'blur' }
-        ],
+        // invitationCode: [
+        //   { required: true, message: '请填写邀请码', trigger: 'blur' }
+        // ],
         mobileMessCode: [
           { required: true, message: '请填写短信验证码', trigger: 'blur' }
         ]
@@ -163,17 +161,24 @@ export default {
           // this.$store.state.mobile = this.ruleForm.mobile;
           // this.$store.state.mobile = this.$store.state.mobile.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
           // 获取手机验证码
-          Axios.get(configAPI.getMobileCode_url, {
-            params: {
-              phone: this.ruleForm.mobile
-            }
-          }).then(result => {
+          let params = {
+            phone: this.ruleForm.mobile
+          }
+          Axios.post(configAPI.getMobileCode_url,
+            Qs.stringify(params)
+          ).then(result => {
             console.log(result)
-          })
-          this.$message.success({
-            dangerouslyUseHTMLString: true,
-            duration: 6000,
-            message: '手机验证码服务尚未开通，默认手机验证码为 <strong>" 987023 "</strong>'
+            if (result.data.code === 200) {
+              this.ruleForm.key = result.data.result.key
+              console.log('验证码密钥', this.ruleForm.key)
+              this.$message.success({
+                dangerouslyUseHTMLString: true,
+                duration: 5000,
+                message: '手机验证码服务尚未开通，默认手机验证码为 <strong>" 1234 "</strong>'
+              })
+            } else {
+              this.$message.error(result.data.msg)
+            }
           })
           this.getCode()
         } else {
@@ -210,22 +215,25 @@ export default {
           if (this.checked) {
             // 发送注册请求
             const data = Qs.stringify({
-              type: '1',
-              real_name: this.ruleForm.name,
+              name: this.ruleForm.name,
               phone: this.ruleForm.mobile,
               email: this.ruleForm.email,
               password: this.ruleForm.password,
-              invitation_code: this.ruleForm.invitationCode,
-              code: this.ruleForm.mobileMessCode
+              verification_code: this.ruleForm.mobileMessCode,
+              verification_key: this.ruleForm.key
             })
             console.log(data)
-            Axios.post(configAPI.userRegister_url + data, {
-
-            }).then(result => {
-              console.log(result)
-              this.registerSucc(formName)
+            Axios.post(configAPI.userRegister_url ,data
+            ).then(result => {
+              // console.log('错误信息1', result)
+              if (result.data.code === 200) {
+                  this.registerSucc(formName)
+              } else {
+                  console.log('错误信息1', result)
+                  this.$message.error(result.data.msg)
+              }
             }).catch((err) => {
-              console.log(err.response)
+              // console.log('错误信息2', err)
               // this.$message.error(err.msg)
               this.$message.error(err.response.data.msg)
             })

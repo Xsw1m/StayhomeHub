@@ -23,7 +23,7 @@
 <script>
 import service from '../API/request';
 import configAPI from '../API/configAPI';
-import Axios from 'axios';
+import Axios from '../API/http.js'
 import Qs from 'qs'
 export default {
     data(){
@@ -54,6 +54,7 @@ export default {
                 password:'',
                 checkPassword:'',
                 sonMobile:'',
+                key: '',
                 sonCode:''
             },
             rules2: {
@@ -73,14 +74,24 @@ export default {
                     let params = Qs.stringify({
                         phone:this.ruleForm2.sonMobile,
                         password:this.ruleForm2.checkPassword,
-                        code:this.ruleForm2.sonCode
+                        verification_code:this.ruleForm2.sonCode,
+                        verification_key: this.ruleForm2.key
                     })
                     console.log(params)
-                    Axios.put(configAPI.changPassword_url + params,{
-
+                    Axios.get(configAPI.changPassword_url, {
+                        params: {
+                            phone:this.ruleForm2.sonMobile,
+                            password:this.ruleForm2.checkPassword,
+                            verification_code:this.ruleForm2.sonCode,
+                            verification_key: this.ruleForm2.key
+                        }
                     }).then(result => {
                         console.log(result)
-                        this.$router.push({path:'/passwordSuccess'});
+                        if (result.data.code === 200) {
+                            this.$router.push({path:'/passwordSuccess'});
+                        } else {
+                            this.$message.error(result.data.msg)
+                        }
                     }).catch((err)=>{
                         console.log(err)
                         this.$message.error(err.msg)
@@ -101,7 +112,8 @@ export default {
         var cs = this.$route.params;
         console.log(cs)
         this.ruleForm2.sonMobile = cs.sonMobile,
-        this.ruleForm2.sonCode = cs.sonCode
+        this.ruleForm2.sonCode = cs.sonCode,
+        this.ruleForm2.key = cs.key
     }
 
 }

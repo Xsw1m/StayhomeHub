@@ -38,7 +38,8 @@
 <script>
 import service from '../API/request';
 import configAPI from '../API/configAPI';
-import Axios from 'axios';
+// import Axios from 'axios';
+import Axios from '../API/http.js'
 import Qs from 'qs'
 export default {
     data(){
@@ -58,7 +59,8 @@ export default {
             timer: null,
             active:1,
             ruleForm:{
-                mobile:'',  
+                mobile:'',
+                key: '',
                 mobileMessCode:'' 
             },   
             rules2: {
@@ -81,17 +83,20 @@ export default {
                     this.$store.state.mobile = this.ruleForm.mobile;
                     this.$store.state.mobile = this.$store.state.mobile.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
                     //获取手机验证码
-                        Axios.get(configAPI.getMobileCode_url,{
-                            params:{
-                                phone:this.ruleForm.mobile
-                            }
-                        }).then(result=>{
-                            console.log(result)
+                        let params = {
+                            phone:this.ruleForm.mobile
+                        }
+                        Axios.post(configAPI.getMobileCode_url,
+                            Qs.stringify(params)
+                        ).then(result=>{
+                            console.log('',result)
+                            this.ruleForm.key = result.data.result.key
+                            console.log('验证码key', this.ruleForm.key)
                         })
                         this.$message.success({
                             dangerouslyUseHTMLString: true,
-                            duration:6000,
-                            message:'手机验证码服务尚未开通，默认手机验证码为 <strong>" 987023 "</strong>'
+                            duration:5000,
+                            message:'手机验证码服务尚未开通，默认手机验证码为 <strong>" 1234 "</strong>'
                         })
                     this.getCode()
                 }else{
@@ -127,30 +132,30 @@ export default {
         },  
         checkMessCode(ruleForm){
             // this.$router.push({path:'/resetpassword'});
-            
             this.$refs["ruleForm"].validate((valid) => {
                 // console.log(valid)
                 if(this.ruleForm.mobileMessCode == 0){
                     return
                 }else{
                     // console.log('ok')
-                    Axios.get(configAPI.checkMesscode_url,{
-                        params:{
-                            phone:this.ruleForm.mobile,
-                            code:this.ruleForm.mobileMessCode
-                        }
-                    }).then(result=>{
-                        console.log(result)
+                    // Axios.get(configAPI.checkMesscode_url,{
+                    //     params:{
+                    //         phone:this.ruleForm.mobile,
+                    //         code:this.ruleForm.mobileMessCode
+                    //     }
+                    // }).then(result=>{
+                        // console.log(result)
                         //把手机号和验证码传过去
                         var person = {
                             sonMobile:this.ruleForm.mobile,
                             sonCode:this.ruleForm.mobileMessCode,
+                            key: this.ruleForm.key
                         }
                         this.$router.push({name:'resetpassword',params:person});
-                    }).catch((err)=>{
-                        console.log(err)
-                        this.$message.error(err.msg)
-                    })
+                    // }).catch((err)=>{
+                    //     console.log(err)
+                    //     this.$message.error(err.msg)
+                    // })
                 }
             });
         }  

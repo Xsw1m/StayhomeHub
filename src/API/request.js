@@ -23,7 +23,7 @@ service.interceptors.request.use(function (config) { // 每次请求时会从loc
     // token = "Bearer "+ token.replace(/'|"/g, '') // 把token加入到默认请求参数中 ？？？
     // token = "Bearer "+ token // 把token加入到默认请求参数中
     // console.log(token)
-    config.headers.common.authorization_token = token // ？？？
+    config.headers.common.Authorization = 'Bearer ' + token // ？？？
   } else {
     router.replace({
       path: '/login' // 到登录页重新获取token
@@ -56,17 +56,17 @@ service.interceptors.response.use(
     return response
   },
   error => {
-    if (error.response) {
-      switch (error.response.status) {
-        case 401:
-          // 返回 401 清除token信息并跳转到登录页面
-          localStorage.removeItem('token')
-          router.replace({
-            path: '/login' // 到登录页重新获取token
-          })
-      }
-      console.log(error.response)
-    }
+    // if (error.response) {
+    //   switch (error.response.status) {
+    //     case 401:
+    //       // 返回 401 清除token信息并跳转到登录页面
+    //       localStorage.removeItem('authorization_token')
+    //       router.replace({
+    //         path: '/login' // 到登录页重新获取token
+    //       })
+    //   }
+    //   console.log(error.response)
+    // }
     return Promise.reject(error.response.data) // 返回接口返回的错误信息
   })
 

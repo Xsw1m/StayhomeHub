@@ -14,7 +14,9 @@
 </template>
 <script>
 import Qs from 'qs'
-import axios from 'axios';
+import Axios from '../API/http.js'
+import service from '../API/request';
+import configAPI from '../API/configAPI';
 export default {
     data(){
         return{
@@ -34,12 +36,13 @@ export default {
             // this.imageUrl = URL.createObjectURL(file.raw);
         },
         beforeAvatarUpload(file) {
-            console.log('同一个')
+            console.log('1.上传前获取图片文件', file)
             this.image = file
             let isJPG = ['image/jpeg' , 'image/gif' , 'image/png' , 'image/webp'].indexOf(file.type);
-            console.log(isJPG)
+            // console.log('1.图片类型', isJPG)
             const isLt4M = file.size / 1024 / 1024 < 4;
             this.uploadType = file.name.split('.')[1]
+            // console.log('1.图片类型', this.uploadType)
             if (isJPG < 0) {
                 this.$message.error('上传图片格式不正确，只支持jpg,jpeg,gif,png,webp!');   
                 return false
@@ -52,91 +55,44 @@ export default {
             // this.file = file
             // this.createImage(file)
         },
-        // createImage (file) {
-        //         // var image = new Image()
-        //     let reader = new FileReader()
+        // 上传头像
 
-        //     reader.onload = (e) => {
-
-        //         this.image = e.target.result
-        //         console.log(this.image)
-        //     }
-        //     reader.readAsDataURL(this.file)
-        // },
         uploadFile: async function (params){
-
-            //获取当前时间
-            var date = new Date();
-            var hour = date.getHours();
-            var minu = date.getMinutes();
-            var sec = date.getSeconds();
-            if (hour < 10) hour = "0" + hour;
-            if (minu < 10) minu = "0" + minu;
-            if (sec < 10) sec = "0" + sec;
-            //添加后缀名
-            let uploadType = '.' + this.uploadType
-            console.log(hour.toString())
-            // console.log(hour)
-            let fileName =  hour.toString() + minu.toString() + sec.toString() +  Math.round(Math.random()*10).toString() +  Math.round(Math.random()*10).toString() +  Math.round(Math.random()*10).toString() + uploadType
-            console.log(fileName)
-
-            
-            let data = Qs.stringify({
-                    fileName:fileName,
-                    type:this.uploadType,
-                })
-            console.log(data)
-
-
-            var response = ''
-            await axios.put(`https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`,{
-                fileName:fileName,
-                type:1,
-            }).then(result=>{
-                response = result
-                console.log(result)
+            // 开始上传
+            // console.log('2.--上传前获取参数', params)
+            // console.log('2.--上传前测试参数', this.image)
+            let a = new FormData()
+            a.append('type', 'avatar')
+            a.append('image', params.file)
+            service.post(configAPI.uploadImages,
+                a
+            ).then((result) => {
+                if (result.data.code === 200) {
+                    console.log('1.上传成功', result)
+                    this.changeUserInfo(result.data.result.id)
+                } else {
+                    this.$message.error(result.data.msg)
+                }
+            }).catch((err) => {
+                console.log('2.上传失败', err)
             })
-            
-            console.log(response)
-            
-            // const response = await axios({
-            //     method: 'PUT',
-            //     data: data,
-            //     url: `https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`
-            // })
-            // console.log(result)
-            console.log('Response: ', response.data)
-            // console.log('Uploading: ', this.image)
-            let uploadInfo = JSON.parse(response.data.body)
-            console.log('Responsebody: ', uploadInfo)
-
-
-            // // atob() 方法用于解码使用 base-64 编码的字符串。
-            // let binary = atob(this.image.split(',')[1])
-            // let array = []
-            // for (var i = 0; i < binary.length; i++) {
-            //     array.push(binary.charCodeAt(i))
-            // }
-            // // let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
-            // let blobData = new Blob([new Uint8Array(array)],{type: 'image/jpeg'})
-            // console.log('Uploading to: ', uploadInfo.uploadURL)
-            // // console.log(blobData)
-
-            // const result = await fetch(uploadInfo.uploadURL, {
-            //     method: 'PUT',
-            //     body: blobData
-            // })
-
-            let nnnn = this.image
-            const result = await axios.put(uploadInfo.uploadURL,nnnn)
-
-
-            console.log('Result: ', result)
-
-            // Final URL for the user doesn't need the query string params
-            console.log(result.config.url.split('?')[0])
-            this.imageUrl = result.config.url.split('?')[0]
         },
+        // 修改个人信息（头像）
+        changeUserInfo(id) {
+            let params = Qs.stringify({
+                avatar_image_id: id
+            })
+            service.patch(configAPI.changUserInfor_url + params,{
+            }).then(result=>{
+                console.log('3.修改个人信息', result)
+                this.$message.success('修改个人信息成功', result.data.message)
+                // this.getUserInfor()
+                // this.$emit('getUserInfor', result)
+                // parent.location.reload()
+                // this.$bus.$emit('change')
+
+            })
+        }
     },
     watch: {
         imageUrl(newval, oldval) {
