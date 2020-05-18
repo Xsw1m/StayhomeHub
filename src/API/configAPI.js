@@ -39,7 +39,7 @@ const getAdminVideoInfor_url = '/video/details/control/' // 从消息中心点�
 const getvideolistnavmenu = '/column/home/list'
 const getvideoeco = '/column/list/'
 const getcategory = '/column/list/'
-const getvideolist = '/video/list'
+const getvideolist = '/video'
 const gethomepageselected = '/video/list/selection'
 const gettimeaxis = '/video/time/search'
 const logout = '/user/logout'
@@ -55,6 +55,7 @@ const share_details = '/share/video/details'
 const share_download = '/share/video/download'
 // 图片上传本地服务
 const uploadImages = '/images'
+// video 接口
 
 // 需要让外部拿到
 export default {

@@ -24,7 +24,7 @@
         <!-- 循环判断 -->
             <div v-if="(index+1)<11" class="nav_left"><img :src="item.id==listid ? require(('../../src/img/nav'+(index+1)+'_focus.png')):require(('../../src/img/nav'+(index+1)+'.png'))" style="width:0.9375vw;height:0.9375vw;"></div>
             <div v-if="(index+1)>=11" class="nav_left"><img :src="item.id==listid ? require(('../../src/img/nav10_focus.png')):require(('../../src/img/nav10.png'))" style="width:0.9375vw;height:0.9375vw;"></div>
-            <div class="nav_right"> <span>{{item.column_name}}</span></div>
+            <div class="nav_right"> <span>{{item.name}}</span></div>
         </div>
     </div>
 </template>
@@ -45,16 +45,16 @@ export default {
         return {
             pageid:'0',
             video:[
-                {id: 8, column_name: '娱乐'},
-                {id: 9, column_name: '音乐'},
-                {id: 10, column_name: '舞蹈'},
-                {id: 11, column_name: '生活'},
-                {id: 12, column_name: '科技'},
-                {id: 13, column_name: 'Vlog'},
-                {id: 14, column_name: '鬼畜'},
-                {id: 15, column_name: '游戏'},
-                {id: 16, column_name: '动漫番剧'},
-                {id: 17, column_name: '影视'}
+                // {id: 8, column_name: '娱乐'},
+                // {id: 9, column_name: '音乐'},
+                // {id: 10, column_name: '舞蹈'},
+                // {id: 11, column_name: '生活'},
+                // {id: 12, column_name: '科技'},
+                // {id: 13, column_name: 'Vlog'},
+                // {id: 14, column_name: '鬼畜'},
+                // {id: 15, column_name: '游戏'},
+                // {id: 16, column_name: '动漫番剧'},
+                // {id: 17, column_name: '影视'}
             ]
         }
     },
@@ -77,15 +77,15 @@ export default {
     created(){
         // console.log("测试: "+this.nav.id+' '+this.isChecked)
 
-        // service.get(configAPI.getvideolistnavmenu,{
+        service.get(configAPI.getvideolistnavmenu,{
 
-        // }).then((result) => {
-        //     let {data} = result;
-        //     console.log(data)
-        //     this.video = data.result.list;
-        // }).catch((err) => {
+        }).then((result) => {
+            let {data} = result;
+            console.log('1.侧边栏', data.result[0])
+            this.video = data.result[0];
+        }).catch((err) => {
             
-        // });
+        });
     },
     watch:{
         pageid:function(newVal){

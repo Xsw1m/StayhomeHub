@@ -918,7 +918,8 @@ export default {
         //获取首页宣传栏目
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 8,
+                    'filter[category_id]': 1,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -931,7 +932,8 @@ export default {
         //获取首页链群动态
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 9,
+                    'filter[category_id]': 2,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -944,7 +946,8 @@ export default {
         //获取首页舞蹈show
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 10,
+                    'filter[category_id]': 3,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -957,7 +960,8 @@ export default {
         //获取首页生活live
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 11,
+                    'filter[category_id]': 4,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -970,7 +974,8 @@ export default {
         //获取首页科技数码
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 12,
+                    'filter[category_id]': 5,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -983,7 +988,8 @@ export default {
         //获取首页Vlog记录
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 13,
+                    'filter[category_id]': 6,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -996,7 +1002,8 @@ export default {
         //获取首页鬼畜
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 14,
+                    'filter[category_id]': 7,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -1009,7 +1016,8 @@ export default {
         //获取首页游戏
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 15,
+                    'filter[category_id]': 8,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -1022,7 +1030,8 @@ export default {
         //获取首页动漫番剧
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 44,
+                    'filter[category_id]': 9,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -1035,7 +1044,8 @@ export default {
         //获取首页影视
         service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': 16,
+                    'filter[category_id]': 10,
+                    'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
                 }

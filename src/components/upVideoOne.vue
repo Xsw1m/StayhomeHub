@@ -234,6 +234,8 @@ import service from '../API/request';
 import configAPI from '../API/configAPI';
 import Qs from 'qs'
 import Axios from '../API/http.js'
+import axios from 'axios'
+import TcVod from 'vod-js-sdk-v6'
 
 //导入组件
 import upImgTemplate from '../components/upImgTemplate.vue'
@@ -413,7 +415,7 @@ export default {
             this.ruleForm.imageUrl2 = data
         },
         onFileChange (e) {
-
+            console.log('1.上传视频-->', e)
             // this.loading = true
 
             let LocalvideoUrl = URL.createObjectURL(e.target.files[0]);
@@ -535,6 +537,15 @@ export default {
         //     }
         //     reader.readAsDataURL(file)
         // },
+        getSignature() {
+            console.log('111111->开始获取签名')
+            return axios.post('https://vod.ap-guangzhou.api.tencentyun.com').then(function (response) {
+                console.log('222222->返回获取签名', response)
+                return response.data.signature;
+            }).catch((err) => {
+                console.log('333333->返回出错！', err)
+            })
+        },
         uploadImage: async function (e) {
             
             console.log('Upload clicked')
@@ -552,11 +563,13 @@ export default {
             console.log(hour.toString())
             // console.log(hour)
             let fileName =  hour.toString() + minu.toString() + sec.toString() +  Math.round(Math.random()*10).toString() +  Math.round(Math.random()*10).toString() +  Math.round(Math.random()*10).toString() + uploadType
-            console.log(fileName)
+            console.log('1.---文件名称', fileName)
 
             var response = ''
             // type 1图片 2视频 3音频 4其它
-            await axios.put(`https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`,{
+            this.getSignature()
+            
+            await axios.put(`https://vod.ap-guangzhou.api.tencentyun.com`,{
                 fileName:fileName,
                 type:2,
             }).then(result=>{
