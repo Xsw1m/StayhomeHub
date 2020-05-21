@@ -14,7 +14,7 @@
                     <input type="file" id="videoFile" @change="onFileChange" ref="inputFile" style="display:none">
                 </div>
                 <div style="width:100%;height:28.5%;display:flex;justify-content:center">
-                    <span style="font-size:0.78vw">请选择要上传的视频</span>
+                    <span style="font-size:0.78vw" @click="test">请选择要上传的视频</span>
                 </div>
                 <div style="width:100%;text-align:center">
                     <span style="font-size:0.625vw;color:#999999">上传视频，即表示您已同意<a href="" @click.prevent="func" style="text-decoration:none;color:#E9A786;">上传服务条款</a>，请勿上传色情及反动等违法视频</span>
@@ -63,14 +63,15 @@
 
     <div v-if="upClick == 1 || adminVideoId !== undefined " class="upVideoTwoContainer">
         <div v-if="adminVideoId == undefined " class="process">
-            <p v-if="progress == 100">上传成功！请继续填写内容！</p>
-            <p v-if="progress < 100">上传中，请勿关闭页面</p>
-            <el-progress :text-inside="true" :stroke-width="26" :percentage = progress></el-progress>
-            <div v-if="progress < 100" style="display:flex;justify-content:space-between">
+            <p v-if="(uploaderInfos[0].progress * 100) == 100">上传成功！请继续填写内容！</p>
+            <p v-if="(uploaderInfos[0].progress * 100) < 100">上传中，请勿关闭页面</p>
+            <el-progress :text-inside="true" :stroke-width="26" :percentage = "(uploaderInfos[0].progress * 100)"></el-progress>
+            <div v-if="(uploaderInfos[0].progress * 100) < 100" style="display:flex;justify-content:space-between">
                 <p>当前上传速度：{{speed}}M/S</p>
                 <p>已上传：{{current}}M/{{videoSize}}M</p>
                 <p v-if="Surplus == 'NaN秒'">剩余时间：暂无</p>
                 <p v-else>剩余时间：{{Surplus}}</p>
+                <el-button type="error" @click="uploaderInfos[0].cancel()">取消上传</el-button>
             </div>
         </div>
         <br>
@@ -242,6 +243,41 @@ import upImgTemplate from '../components/upImgTemplate.vue'
 import upImgTemplatehorizontal from '../components/upImgTemplatehorizontal.vue'
 import { Server } from 'http';
 
+function getSignature() {
+  return Axios.post('/signature').then(function (response) {
+    console.log('签名', response)
+    return response.data.result;
+  })
+}
+function getAntiLeechUrl(videoUrl, callback) {
+//   return axios
+//     .post(
+//       "https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com",
+//       JSON.stringify({
+//         Action: "GetAntiLeechUrl",
+//         Url: videoUrl
+//       })
+//     )
+//     .then(function(response) {
+//       return response.data.data.url;
+//     })
+    return videoUrl
+}
+function test(videoUrl, callback) {
+    let params = {
+        Action: 'GetAntiLeechUrl',
+        Url: videoUrl
+    }
+  return axios
+    .post(
+      'https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com',
+      Qs.stringify(params),
+      {headers: {'Content-Type': 'multipart/form-data;charset=utf-8'}}
+    )
+    .then(function(response) {
+      return response.data.data.url;
+    })
+}
 export default {
     components:{
         // 'uploadDemo':uploadDemo,
@@ -302,6 +338,7 @@ export default {
             options4:'',
             options3:'',
             list: [],
+            uploaderInfos: [],
             // loading: false,
             speed:0,
             current:0,
@@ -414,6 +451,24 @@ export default {
             console.log(data)
             this.ruleForm.imageUrl2 = data
         },
+        uploadVideo (e) {
+            console.log('1.上传视频', e.target.files[0])
+            const tcVod = new TcVod({
+                getSignature: getSignature
+            })
+            // const uploader = tcVod.upload({
+            //     mediaFile: e.target.files[0], // 媒体文件（视频或音频或图片），类型为 File
+            // })
+            // uploader.on('media_progress', function(info) {
+            //     console.log('1.进度', info.percent) // 进度
+            // })
+
+            // uploader.done().then(function (doneResult) {
+            //     console.log('2.成功', doneResult)
+            // }).catch(function (err) {
+            //     console.log('3.失败', err)
+            // })
+        },
         onFileChange (e) {
             console.log('1.上传视频-->', e)
             // this.loading = true
@@ -428,7 +483,7 @@ export default {
             this.videoName = e.target.files[0].name
             this.file = e.target.files[0]
             this.videoSize = parseInt(e.target.files[0].size /1024 /1024)
-            console.log(this.videoSize)
+            console.log('前传视频大小MB：', this.videoSize)
             let files = e.target.files || e.dataTransfer.files
             // 获取图片信息，但是e.dataTransfer.files恒为空
             // console.log(e.target.files[0].duration)
@@ -452,7 +507,7 @@ export default {
             });
             // console.log('视频总时长为' + this.video_duration);
 
-            console.log(e.target.files[0].size)
+            console.log('前传视频大小',e.target.files[0].size)
 
             let isType = ['avi', 'wmv', 'mpeg', 'mp4', 'mov', 'mkv', 'flv', 'f4v', 'm4v', 'rmvb', 'rm', '3gp', 'dat', 'ts', 'mts', 'vob'].indexOf(this.uploadType)
 
@@ -480,7 +535,7 @@ export default {
                 // done();
                 console.log('ok')
                 this.upClick = 1;
-                this.uploadImage()
+                this.uploadImage(e)
             })
             .catch( () => {
                 // console.log(action)
@@ -492,7 +547,10 @@ export default {
 
         },
         check(){
-
+            console.log('why！！！', this.uploaderInfos)
+        },
+        test() {
+            console.log('测试！！！', test('http://1258210079.vod2.myqcloud.com/18f996e5vodcq1258210079/d2b38cae5285890803260834945/2BCW79b111YA.mp4'))
         },
         // createImage (file) {
         //     // var image = new Image()
@@ -523,7 +581,7 @@ export default {
         //         .then(()=> {
         //             // done();
         //             console.log('ok')
-        //             this.uploadImage()
+        //             this.uploadImage(e)
         //         })
         //         .catch(() => {
         //             console.log('no')
@@ -537,18 +595,9 @@ export default {
         //     }
         //     reader.readAsDataURL(file)
         // },
-        getSignature() {
-            console.log('111111->开始获取签名')
-            return axios.post('https://vod.ap-guangzhou.api.tencentyun.com').then(function (response) {
-                console.log('222222->返回获取签名', response)
-                return response.data.signature;
-            }).catch((err) => {
-                console.log('333333->返回出错！', err)
-            })
-        },
-        uploadImage: async function (e) {
+        uploadImage (e) {
             
-            console.log('Upload clicked')
+            console.log('Upload clicked', e)
 
             //获取当前时间
             var date = new Date();
@@ -563,81 +612,200 @@ export default {
             console.log(hour.toString())
             // console.log(hour)
             let fileName =  hour.toString() + minu.toString() + sec.toString() +  Math.round(Math.random()*10).toString() +  Math.round(Math.random()*10).toString() +  Math.round(Math.random()*10).toString() + uploadType
-            console.log('1.---文件名称', fileName)
+            // console.log('1.---文件名称', fileName)
 
             var response = ''
             // type 1图片 2视频 3音频 4其它
-            this.getSignature()
-            
-            await axios.put(`https://vod.ap-guangzhou.api.tencentyun.com`,{
-                fileName:fileName,
-                type:2,
-            }).then(result=>{
-                response = result
-                console.log(result)
+
+            // await axios.put(`https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com`,{
+            //     fileName:fileName,
+            //     type:2,
+            // }).then(result=>{
+            //     response = result
+            //     console.log(result)
+            // })
+
+            const tcVod = new TcVod({
+                getSignature: getSignature
             })
-            
-            console.log(response)
-            
-            console.log('Response: ', response.data)
-            let uploadInfo = JSON.parse(response.data.body)
-            console.log('Responsebody: ', uploadInfo)
-            console.log('Uploading to: ', uploadInfo.uploadURL)
+            console.log('1.上传视频', e.target.files[0])            
+            var uploader = tcVod.upload({
+                mediaFile: e.target.files[0]
+            });
+            const _this = this
+            uploader.on("media_progress", function(info) {
+                uploaderInfo.progress = info.percent;
+                console.log('2.进度参数', info.percent)
+                console.log('2.进度进程', (uploaderInfo.progress * 100) + '%')
+                if((uploaderInfo.progress * 100) < 100){
+                    console.log('2-1判断进程开始', (uploaderInfo.progress * 100))
+                    // if(this.myIntervalStatus){
+                        _this.current = parseInt((uploaderInfo.progress * 100) * _this.videoSize / 100) 
+                        console.log('2-2开启', _this.videoSize)
+                        _this.myIntervalFuntion()
+                    // } else {
+                    //     console.log('2-2不开启', this.myIntervalStatus)
+                    // }
+                } else if ((uploaderInfo.progress * 100) == 100) {
+                    console.log('2-1判断进程完成', (uploaderInfo.progress * 100))
+                    // clearInterval(this.myInterval)
+                    // this.myIntervalStatus = true
+                    _this.altime = -1
+                    _this.speed = 0
+                    _this.Surplus = 0
+                } else {
+                    console.log('2-1判断进程出错', (uploaderInfo.progress * 100))
+                }
+            });
+            uploader.on("media_upload", function(info) {
+                uploaderInfo.isVideoUploadSuccess = true;
+                console.log('3,上传结果', info,uploaderInfo.isVideoUploadSuccess)
+            });
 
-            console.log(this.file)
+            console.log(uploader, "uploader");
 
-            var nnnn = this.file
-            
-            var config = {
-                onUploadProgress: progressEvent => {
-                    var complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
-                    this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0)
-                    this.current = parseInt(this.progress * this.videoSize / 100)   
-                    
-                    // this.loading = false           
-
-                    console.log('当前进度' +this.progress)
-                   
-                    if(this.progress == 0){  
-                        if(this.myIntervalStatus){
-                            this.myIntervalFuntion()
-                            console.log('开启')
-                        }
-                    }
-                    if(this.progress == 100){
-                        // clearInterval(this.myInterval)
-                        // this.myIntervalStatus = true
-                        this.altime = -1
-                        this.speed = 0
-                        this.Surplus = 0
-                    }
-
+            var uploaderInfo = {
+                videoInfo: uploader.videoInfo,
+                isVideoUploadSuccess: false,
+                isVideoUploadCancel: false,
+                progress: 0,
+                fileId: "",
+                videoUrl: "",
+                cancel: function() {
+                uploaderInfo.isVideoUploadCancel = true;
+                uploader.cancel();
                 }
             }
+            console.log('4.uploaderInfo:', uploaderInfo)
+
+            this.uploaderInfos.push(uploaderInfo);
+            console.log('5.uploaderInfos[]:', uploaderInfo)
+
+
+            uploader
+                .done()
+                .then(function(doneResult) {
+                console.log("6.上传成功结果doneResult", doneResult);
+
+                uploaderInfo.fileId = doneResult.fileId;
+
+                return getAntiLeechUrl(doneResult.video.url);
+            }).then(function(videoUrl) {
+                uploaderInfo.videoUrl = videoUrl;
+                console.log('7，视频地址：', uploaderInfo.videoUrl)
+            });
+
+            //////////////////////////////////////////////////////////
+            // console.log('1.上传视频', e)
+            // const tcVod = new TcVod({
+            //     getSignature: getSignature
+            // })
+            // const uploader = tcVod.upload({
+            //     mediaFile: e.target.files[0], // 媒体文件（视频或音频或图片），类型为 File
+            // })
+            // uploader.on('media_progress', function(info) {
+            //     console.log('1.进度', info.percent) // 进度
+            // })
+
+            // const uploaderInfo = {
+            //     videoInfo: uploader.videoInfo,
+            //     isVideoUploadSuccess: false,
+            //     isVideoUploadCancel: false,
+            //     progress: 0,
+            //     fileId: "",
+            //     videoUrl: "",
+            //     cancel: function() {
+            //     uploaderInfo.isVideoUploadCancel = true;
+            //     uploader.cancel();
+            //     }
+            // }
+
+            // this.uploaderInfos.push(uploaderInfo);
+
+
+            // uploader.done().then(function (doneResult) {
+            //     response = doneResult
+            //     console.log('2.成功', response)
+            // }).catch(function (err) {
+            //     console.log('3.失败', err)
+            // })
+
+            // // 视频上传进度
+            // // 视频上传完成时
+            // uploader.on('media_upload', function(info) {
+            //     uploaderInfo.isVideoUploadSuccess = true;
+            // })
+            // // 视频上传进度
+            // uploader.on('media_progress', function(info) {
+            //     this.progress = info.percent;
+            //     console.log('4.上传进度', this.progress)
+            // })
+            ////////////////////////////////////////////////////////////
+            // console.log(response)
             
-            const result = await axios.put(uploadInfo.uploadURL,nnnn,config)
+            // console.log('Response: ', response.data)
+            // let uploadInfo = JSON.parse(response.data.body)
+            // console.log('Responsebody: ', uploadInfo)
+            // console.log('Uploading to: ', uploadInfo.uploadURL)
+
+            // console.log(this.file)
+
+            // var nnnn = this.file
+            
+            // var config = {
+            //     onUploadProgress: progressEvent => {
+            //         var complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
+            //         this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0)
+            //         this.current = parseInt(this.progress * this.videoSize / 100)   
+                    
+            //         // this.loading = false           
+
+            //         console.log('当前进度' +this.progress)
+                   
+            //         if(this.progress == 0){  
+            //             if(this.myIntervalStatus){
+            //                 this.myIntervalFuntion()
+            //                 console.log('开启')
+            //             }
+            //         }
+            //         if(this.progress == 100){
+            //             // clearInterval(this.myInterval)
+            //             // this.myIntervalStatus = true
+            //             this.altime = -1
+            //             this.speed = 0
+            //             this.Surplus = 0
+            //         }
+
+            //     }
+            // }
+            
+            // const result = await axios.put(uploadInfo.uploadURL,nnnn,config)
             // this.upClick = 1;
 
-            console.log('Result: ', result)
+            // console.log('Result: ', result)
 
-            // Final URL for the user doesn't need the query string params
-            console.log(result.config.url.split('?')[0])
-            this.video_url = result.config.url.split('?')[0]
+            // Final URL for the user doesnt need the query string params
+            // console.log(result.config.url.split('?')[0])
+            // this.video_url = result.config.url.split('?')[0]
+            // this.video_url = response.video.url
+            // console.log('5.视频地址', this.video_url)
             // this.uploadURL = result.url.split('?')[0]
         },
         myIntervalFuntion(){
+            console.log('8.开始调用速度显示方法：')
             // this.upClick = 1;
+            const _this = this
             var myInterval = setInterval(()=>{
-                if(this.altime == -1){
+                if(_this.altime == -1){
                     clearInterval(myInterval)
                     return false
                 }
-                this.myIntervalStatus = false
-                this.altime ++
-                this.speed = (this.current/this.altime).toFixed(2)
-                console.log('当前速度' + this.speed)
-                this.Surplus = this.formatSeconds(parseInt(this.videoSize/this.speed) - this.altime)
-                console.log('当前已用时：' + this.altime)
+                _this.myIntervalStatus = false
+                _this.altime ++
+                _this.speed = (_this.current/_this.altime).toFixed(2)
+                console.log('8.当前速度' + _this.speed)
+                _this.Surplus = _this.formatSeconds(parseInt(_this.videoSize/_this.speed) - _this.altime)
+                console.log('8.当前已用时：' + _this.altime)
                 
             },1000)
         },
