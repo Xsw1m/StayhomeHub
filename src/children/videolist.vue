@@ -307,7 +307,8 @@ export default {
             if(this.category>0&&this.year>0){
                 service.get(configAPI.getvideolist,{
                     params: {
-                                'column_id': this.category,
+                                'filter[category_id]': this.category,
+                                'filter[status]': 1,
                                 'page':this.page,
                                 'pagesize':this.pagesize,
                                 'time_buckets': this.year,
@@ -329,7 +330,8 @@ export default {
             }else if(this.category>0){
                 service.get(configAPI.getvideolist,{
                     params: {
-                                'column_id': this.category,
+                                'filter[category_id]': this.category,
+                                'filter[status]': 1,
                                 'page':this.page,
                                 'pagesize':this.pagesize,
                             }
@@ -363,7 +365,8 @@ export default {
             }else{
                 service.get(configAPI.getvideolist,{
                     params: {
-                        'column_id': this.listid,
+                        'filter[category_id]': this.listid,
+                        'filter[status]': 1,
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -399,7 +402,8 @@ export default {
             });
             service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': this.listid,
+                    'filter[category_id]': this.listid,
+                    'filter[status]': 1,
                     'page':this.page,
                     'pagesize':this.pagesize,
                 }
@@ -437,7 +441,8 @@ export default {
             // 获取父栏目下的视频
             service.get(configAPI.getvideolist,{
             params: {
-                'column_id': this.listid,
+                'filter[category_id]': this.listid,
+                'filter[status]': 1,
                 'page':this.page,
                 'pagesize':this.pagesize,
             }
@@ -459,7 +464,8 @@ export default {
             if(this.year>2){
             service.get(configAPI.getvideolist,{
                 params: {
-                        'column_id': this.category,
+                        'filter[category_id]': this.category,
+                        'filter[status]': 1,
                         'time_buckets': this.year,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -479,7 +485,8 @@ export default {
             }else{
             service.get(configAPI.getvideolist,{
                 params: {
-                        'column_id': this.category,
+                        'filter[category_id]': this.category,
+                        'filter[status]': 1,
                         // 'time_buckets': this.year
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -505,7 +512,8 @@ export default {
                 if(this.category>0){
                 service.get(configAPI.getvideolist,{
                     params: {
-                        'column_id': this.category,
+                        'filter[category_id]': this.category,
+                        'filter[status]': 1,
                         'time_buckets': this.year,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -522,7 +530,8 @@ export default {
                 }else{
                 service.get(configAPI.getvideolist,{
                     params: {
-                        'column_id': this.category,
+                        'filter[category_id]': this.category,
+                        'filter[status]': 1,
                         'time_buckets': this.year,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -540,7 +549,8 @@ export default {
             }else{
                 service.get(configAPI.getvideolist,{
                 params: {
-                    'column_id': this.listid,
+                    'filter[category_id]': this.listid,
+                    'filter[status]': 1,
                     'page':this.page,
                     'pagesize':this.pagesize,
                 }

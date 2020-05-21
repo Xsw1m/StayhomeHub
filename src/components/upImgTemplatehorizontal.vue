@@ -18,8 +18,25 @@
 <script>
 import Qs from 'qs'
 import Axios from '../API/http.js'
+import axios from 'axios'
 // 导入图片剪裁的组件
 import cutPopuphorizontal from './popup/cutPopuphorizontal.vue'
+var COS = require('cos-js-sdk-v5');
+// var getAuthorization = function (options, callback) {
+//     var authorization = COS.getAuthorization({
+//         SecretId: 'AKIDxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // 可传固定密钥或者临时密钥
+//         SecretKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // 可传固定密钥或者临时密钥
+//         Method: options.Method,
+//         Pathname: options.Pathname,
+//         Query: options.Query,
+//         Headers: options.Headers,
+//         Expires: 900,
+//     });
+//     callback({
+//         Authorization: authorization,
+//         // XCosSecurityToken: credentials.sessionToken, // 如果使用临时密钥，需要传 XCosSecurityToken
+//     })
+// }
 export default {
     components: {
         cutPopuphorizontal
@@ -43,7 +60,7 @@ export default {
             // this.imageUrl = URL.createObjectURL(file.raw);
         },
         getCutPhoto(data){
-            console.log(data + '父组件拿到')
+            console.log('父组件拿到1', data)
             this.image = data
             this.wode = 1
         },
@@ -124,53 +141,76 @@ export default {
 
 
             var response = ''
-            await axios.put(`https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`,{
-                fileName:fileName,
-                type:1,
-            }).then(result=>{
-                response = result
-                console.log(result)
+            console.log('B视频文件params:', params)
+            var cos = new COS({
+                SecretId: 'AKIDEmIr9A3Gn5Z7QkeYOyHJ5IGwc5HBmqkO',
+                SecretKey: 'cEcfV4LM7a6OP8ZtyniYo56qnBfsntpV',
             })
-            
-            console.log(response)
-            
-            // const response = await axios({
-            //     method: 'PUT',
-            //     data: data,
-            //     url: `https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`
+            var _this = this
+            cos.putObject({
+                Bucket: 'stayhomehub-1258210079', /* 必须 */
+                Region: 'ap-beijing',     /* 存储桶所在地域，必须字段 */
+                Key: 'pic/'+ fileName,       /* 必须 */
+                StorageClass: 'STANDARD',
+                Body: params, // 上传文件对象
+                onProgress: function (progressData) {           /* 非必须 */
+                    console.log('2成功获取Progress：', JSON.stringify(progressData));
+                }
+            }, function(err, data) {
+                // console.log('2获取：', err || data);
+                console.log('3.获取失败：', err)
+                console.log('3.获取成功: ', data)
+                if (data.statusCode === 200) {
+                    _this.imageUrl = 'https://' + data.Location
+                }
+            })
+            // await axios.put(`https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`,{
+            //     fileName:fileName,
+            //     type:1,
+            // }).then(result=>{
+            //     response = result
+            //     console.log(result)
             // })
-            // console.log(result)
-            console.log('Response: ', response.data)
-            // console.log('Uploading: ', this.image)
-            let uploadInfo = JSON.parse(response.data.body)
-            console.log('Responsebody: ', uploadInfo)
+            
+            // console.log(response)
+            
+            // // const response = await axios({
+            // //     method: 'PUT',
+            // //     data: data,
+            // //     url: `https://pq4wmkfnr9.execute-api.cn-northwest-1.amazonaws.com.cn/prod/uploads`
+            // // })
+            // // console.log(result)
+            // console.log('Response: ', response.data)
+            // // console.log('Uploading: ', this.image)
+            // let uploadInfo = JSON.parse(response.data.body)
+            // console.log('Responsebody: ', uploadInfo)
 
 
-            // // atob() 方法用于解码使用 base-64 编码的字符串。
-            // let binary = atob(this.image.split(',')[1])
-            // let array = []
-            // for (var i = 0; i < binary.length; i++) {
-            //     array.push(binary.charCodeAt(i))
-            // }
-            // // let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
-            // let blobData = new Blob([new Uint8Array(array)],{type: 'image/jpeg'})
-            // console.log('Uploading to: ', uploadInfo.uploadURL)
-            // // console.log(blobData)
+            // // // atob() 方法用于解码使用 base-64 编码的字符串。
+            // // let binary = atob(this.image.split(',')[1])
+            // // let array = []
+            // // for (var i = 0; i < binary.length; i++) {
+            // //     array.push(binary.charCodeAt(i))
+            // // }
+            // // // let blobData = new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
+            // // let blobData = new Blob([new Uint8Array(array)],{type: 'image/jpeg'})
+            // // console.log('Uploading to: ', uploadInfo.uploadURL)
+            // // // console.log(blobData)
 
-            // const result = await fetch(uploadInfo.uploadURL, {
-            //     method: 'PUT',
-            //     body: blobData
-            // })
+            // // const result = await fetch(uploadInfo.uploadURL, {
+            // //     method: 'PUT',
+            // //     body: blobData
+            // // })
 
-            let nnnn = this.image
-            const result = await axios.put(uploadInfo.uploadURL,nnnn)
+            // let nnnn = this.image
+            // const result = await axios.put(uploadInfo.uploadURL,nnnn)
 
 
-            console.log('Result: ', result)
+            // console.log('Result: ', result)
 
-            // Final URL for the user doesn't need the query string params
-            console.log(result.config.url.split('?')[0])
-            this.imageUrl = result.config.url.split('?')[0]
+            // // Final URL for the user doesn't need the query string params
+            // console.log(result.config.url.split('?')[0])
+            // this.imageUrl = result.config.url.split('?')[0]
 
             this.wode = 0
         },
@@ -184,8 +224,10 @@ export default {
             console.log(newval)
         },
         wode(newVal,oldVal){
+            console.log('wode的值：', newVal)
             if(newVal == 1){
-                this.uploadFile()
+                console.log('A。开始上传功能')
+                this.uploadFile(this.image)
             }
         }
     },

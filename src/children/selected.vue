@@ -808,34 +808,34 @@ export default {
             this.isFloor = 0
         },
         toPropaganda(){
-            this.$router.push({path:'/propaganda',query:{listid:8}})
+            this.$router.push({path:'/propaganda',query:{listid:1}})
         },
         todynamics(){
-            this.$router.push({path:'/propaganda',query:{listid:9}})
+            this.$router.push({path:'/propaganda',query:{listid:2}})
         },
         toMschool(){
-            this.$router.push({path:'/propaganda',query:{listid:10}})
+            this.$router.push({path:'/propaganda',query:{listid:3}})
         },
         toHaierRecord(){
-            this.$router.push({path:'/propaganda',query:{listid:11}})
+            this.$router.push({path:'/propaganda',query:{listid:4}})
         },
         toProcessNode(){
-            this.$router.push({path:'/propaganda',query:{listid:12}})
+            this.$router.push({path:'/propaganda',query:{listid:5}})
         },
         toPOOP(){
-            this.$router.push({path:'/propaganda',query:{listid:13}})
+            this.$router.push({path:'/propaganda',query:{listid:6}})
         },
         toinformation(){
-            this.$router.push({path:'/propaganda',query:{listid:14}})
+            this.$router.push({path:'/propaganda',query:{listid:7}})
         },
         tomaterial(){
-            this.$router.push({path:'/propaganda',query:{listid:15}})
+            this.$router.push({path:'/propaganda',query:{listid:8}})
         },
         tologo(){
-            this.$router.push({path:'/propaganda',query:{listid:44}})
+            this.$router.push({path:'/propaganda',query:{listid:9}})
         },
         toother(){
-            this.$router.push({path:'/propaganda',query:{listid:16}})
+            this.$router.push({path:'/propaganda',query:{listid:10}})
         },
         //判断 首页子组件 向父组件表明自己身份
         judge(){
@@ -924,8 +924,9 @@ export default {
                     'pagesize':5,
                 }
             }).then((result) => {
-                // console.log('这是请求的种类'+this.listid)
+                console.log('这是请求的种类', this.listid)
                 this.propaganda = result.data.result.list
+                console.log('这是请求的种类详情', this.propaganda)
             }).catch((err) => {
                 
             });

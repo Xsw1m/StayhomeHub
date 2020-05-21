@@ -56,18 +56,18 @@ service.interceptors.response.use(
     return response
   },
   error => {
-    // if (error.response) {
-    //   switch (error.response.status) {
-    //     case 401:
-    //       // 返回 401 清除token信息并跳转到登录页面
-    //       localStorage.removeItem('authorization_token')
-    //       router.replace({
-    //         path: '/login' // 到登录页重新获取token
-    //       })
-    //   }
-    //   console.log(error.response)
-    // }
-    return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          // 返回 401 清除token信息并跳转到登录页面
+          localStorage.removeItem('authorization_token')
+          router.replace({
+            path: '/login' // 到登录页重新获取token
+          })
+      }
+      console.log(error.response)
+    }
+    return Promise.reject(error) // 返回接口返回的错误信息
   })
 
 export default service

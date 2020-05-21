@@ -86,7 +86,7 @@
                             <el-option
                                 v-for="item in region1options"
                                 :key="item.id"
-                                :label="item.column_name"
+                                :label="item.name"
                                 :value="item.id"
                                 >
                             </el-option>
@@ -97,7 +97,7 @@
                             <el-option
                                 v-for="item in region2options"
                                 :key="item.id"
-                                :label="item.column_name"
+                                :label="item.name"
                                 :value="item.id"
                                 >
                             </el-option>
@@ -174,41 +174,7 @@
                     <font size="2" color="#d1ced6">所有人不可见：用户需在线申请，待审核通过后方可观看视频</font>
                 </el-form-item> 
 
-                <el-form-item label="申请审核：" prop="Auditor" required>
-                    <el-select v-model="ruleForm.Auditor"  style="width:100%" placeholder="请选择视频下载审核人">
-                        <el-option label="默认超级管理员审核" value="0"></el-option>
-                        <el-option label="自定义审核人" value="1"></el-option>
-                    </el-select>              
-                </el-form-item>            
-                <el-form-item v-if="ruleForm.Auditor == 1">
-                    <div style="display:flex;justify-content:space-between;width:100%">
-                        
-                        <el-form-item class="my_item_style" label="工号：" prop="auditorCode" >
-                            <el-input @blur="func()" v-model="ruleForm.auditorCode" placeholder="请输入" style="width:50%"></el-input>
-                        </el-form-item >
-
-                        <el-form-item v-if="adminVideoId == undefined" class="my_item_style" label="姓名" prop="auditorName" >
-                            <el-input v-model="ruleForm.auditorName" placeholder="请输入" style="width:50%"></el-input>
-                        </el-form-item>
-
-                        <el-form-item class="my_item_style" label="电话" prop="auditorNumber" >
-                            <el-input v-model="ruleForm.auditorNumber" placeholder="请输入" style="width:50%"></el-input>
-                        </el-form-item>
-                    </div>
-                </el-form-item>
-
-                <el-form-item label="允许分类调整" prop="adminClass">
-                    <!-- <el-radio v-model="ruleForm.adminClass" label="1">允许</el-radio>
-                    <el-radio v-model="ruleForm.adminClass" label="2">不允许</el-radio> -->
-                    <el-radio-group v-model="ruleForm.adminClass">
-                        <el-radio :label="1">允许</el-radio>
-                        <el-radio :label="2">不允许</el-radio>
-                    </el-radio-group>
-                    <font size="2" color="#d1ced6">不允许后管理员无法将无法修改视频的分类</font>
-                </el-form-item>
-                    
-
-                <el-form-item label="允许首页展示" prop="adminRecom">
+                <el-form-item label="允许转载" prop="adminRecom">
                     <!-- <el-radio v-model="ruleForm.adminRecom" label="1">允许</el-radio>
                     <el-radio v-model="ruleForm.adminRecom" label="2">不允许</el-radio> -->
                     <el-radio-group v-model="ruleForm.adminRecom">
@@ -420,15 +386,6 @@ export default {
                 imageUrl2:[
                     { required: true, message: '请上传封面图', trigger: 'blur' }
                 ],
-                auditorCode:[
-                    { required: true, message: '请填写工号', trigger: 'blur' }
-                ],                 
-                auditorName:[
-                    { required: true, message: '请填写名字', trigger: 'blur' }
-                ],                 
-                auditorNumber:[
-                    { required: true, validator:validatePass3, trigger: 'blur' }
-                ], 
                 country:[
                     { required: true, message: '请填写国家', trigger: 'change' }
                 ],
@@ -693,8 +650,9 @@ export default {
             }).then(function(videoUrl) {
                 uploaderInfo.videoUrl = videoUrl;
                 console.log('7，视频地址：', uploaderInfo.videoUrl)
+                _this.video_url = uploaderInfo.videoUrl
+                console.log('8.判断表单是否获取video_url: ',_this.adminVideoId, '||', _this.video_url, '||',)
             });
-
             //////////////////////////////////////////////////////////
             // console.log('1.上传视频', e)
             // const tcVod = new TcVod({
@@ -875,23 +833,22 @@ export default {
                     shooting_country:this.ruleForm.country,   //拍摄地点-国家
                     shooting_province:this.ruleForm.province,   //拍摄地点-省份
                     shooting_city:this.ruleForm.city,   //拍摄地点-城市
-                    auditor_staff_id:this.ruleForm.auditorCode,     //观看/下载视频审核人工号
-                    auditor_phone:this.ruleForm.auditorNumber,       //观看/下载视频审核人电话
+                    // auditor_staff_id:this.ruleForm.auditorCode,     //观看/下载视频审核人工号
+                    // auditor_phone:this.ruleForm.auditorNumber,       //观看/下载视频审核人电话
                     user_watch_jurisdiction:this.ruleForm.resource,    //观看权限 1默认可见 2不可见
-                    admin_classify_jurisdiction:this.ruleForm.adminClass,    //管理员自主分类权限 1有权限 2无权限
-                    admin_recommend_jurisdiction:this.ruleForm.adminRecom,     //管理员自主推荐权限 1有权限 2无权限
+                    // admin_classify_jurisdiction:this.ruleForm.adminClass,    //管理员自主分类权限 1有权限 2无权限
+                    transfer:this.ruleForm.adminRecom,     //管理员自主推荐权限 1有权限 2无权限
                 }     
                 //传递视频所属的栏目
                 if(this.showClassTwo){
-                    params["column_id"] = this.ruleForm.region2
+                    params["category_id"] = this.ruleForm.region2
                 }else{
-                    params["column_id"] = this.ruleForm.region1
+                    params["category_id"] = this.ruleForm.region1
                 }
                 console.log(Qs.stringify(params))
                 //首次新建提交
-                service.post(configAPI.uploadVideo_url + Qs.stringify(params),{
-                    
-                }).then( result => {
+                service.post(configAPI.uploadVideo_url, Qs.stringify(params))
+                .then( result => {
                     console.log(result)
                     this.$message.success('上传成功！')
                     this.$refs[formName].resetFields();
@@ -899,7 +856,7 @@ export default {
                     this.video_duration = ''
                     this.upClick = 0
                 }).catch( (err)=>{
-                    console.log(err)
+                    console.log(err.response)
                     this.$store.state.Localvideo = ''
                 })
             } else {
@@ -945,17 +902,17 @@ export default {
                         shooting_country:this.ruleForm.country,   //拍摄地点-国家
                         shooting_province:this.ruleForm.province,   //拍摄地点-省份
                         shooting_city:this.ruleForm.city,   //拍摄地点-城市
-                        auditor_staff_id:this.ruleForm.auditorCode,     //观看/下载视频审核人工号
-                        auditor_phone:this.ruleForm.auditorNumber,       //观看/下载视频审核人电话
+                        // auditor_staff_id:this.ruleForm.auditorCode,     //观看/下载视频审核人工号
+                        // auditor_phone:this.ruleForm.auditorNumber,       //观看/下载视频审核人电话
                         user_watch_jurisdiction:this.ruleForm.resource,    //观看权限 1默认可见 2不可见
-                        admin_classify_jurisdiction:this.ruleForm.adminClass,    //管理员自主分类权限 1有权限 2无权限
-                        admin_recommend_jurisdiction:this.ruleForm.adminRecom,     //管理员自主推荐权限 1有权限 2无权限
+                        // admin_classify_jurisdiction:this.ruleForm.adminClass,    //管理员自主分类权限 1有权限 2无权限
+                        transfer:this.ruleForm.adminRecom,     //管理员自主推荐权限 1有权限 2无权限
                     }     
                     //传递视频所属的栏目
                 if(this.showClassTwo){
-                    params["column_id"] = this.ruleForm.region2
+                    params["category_id"] = this.ruleForm.region2
                 }else{
-                    params["column_id"] = this.ruleForm.region1
+                    params["category_id"] = this.ruleForm.region1
                 }
                 //其次编辑提交
                 service.put(configAPI.changVideoInfor + this.adminVideoId + '?' +  Qs.stringify(params) ,{
@@ -969,7 +926,7 @@ export default {
                     this.upClick = 0
                     this.$router.push({path:'/videoAdmin'})
                 }).catch( (err)=>{
-                    console.log(err)
+                    console.log(err.response)
                     this.$store.state.Localvideo = ''
                 })
               } else {
@@ -1045,6 +1002,13 @@ export default {
 
             console.log(this.ruleForm.province)
         },
+        getOneClass() {
+            service.get(configAPI.getAllUpVideoClass_url,{
+            }).then( result => {
+                console.log('region1获取父级分类:', result.data.result[0])
+                this.region1options = result.data.result[0]
+            })
+        },
         getTwoClass(){
             this.ruleForm.region2 = ''
             service.get(configAPI.getAllUpVideoTwoClass_url + this.ruleForm.region1,{
@@ -1071,13 +1035,13 @@ export default {
             }).then(result=>{
                 console.log(result)
                 
-                if(result.data.result.auditor_phone == ''){
-                    this.ruleForm.Auditor = '0'
-                }else{
-                    this.ruleForm.Auditor = '1'
-                    this.ruleForm.auditorCode = result.data.result.auditor_staff_id,     //观看/下载视频审核人工号
-                    this.ruleForm.auditorNumber = result.data.result.auditor_phone     //观看/下载视频审核人电话
-                }
+                // if(result.data.result.auditor_phone == ''){
+                //     this.ruleForm.Auditor = '0'
+                // }else{
+                //     this.ruleForm.Auditor = '1'
+                //     this.ruleForm.auditorCode = result.data.result.auditor_staff_id,     //观看/下载视频审核人工号
+                //     this.ruleForm.auditorNumber = result.data.result.auditor_phone     //观看/下载视频审核人电话
+                // }
                 if((result.data.result.column_group.id.toString()).indexOf(".") == -1){  //不存在二级
                     this.ruleForm.region1 = result.data.result.column_group.id   // 获取视频分类
                     console.log(typeof(this.ruleForm.region1))
@@ -1118,14 +1082,9 @@ export default {
                 }
             })
         }
-        console.log(this.adminVideoId)
+        console.log('视频管理页面传递过来的视频id', this.adminVideoId)
         this.sedPag()
-        service.get(configAPI.getAllUpVideoClass_url,{
-
-        }).then( result => {
-            console.log(result.data.result.list)
-            this.region1options = result.data.result.list
-        })
+        this.getOneClass()
     },
     // destroyed(){
     //     this.altime = -1
