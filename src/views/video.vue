@@ -183,7 +183,7 @@ export default {
             }else{
                 this.getVideoInfor()
             }   
-            this.getVideoRecommend()
+            // this.getVideoRecommend()
             },
         deep: true
         }
@@ -230,7 +230,7 @@ export default {
             service.get(configAPI.getVideoInfor_url + this.videoId,{
 
             }).then(result=>{
-                console.log(result)
+                console.log('获取视频详情：',result)
                 let {data} = result;
                 if(data.code == 200){
                     // console.log(result)
@@ -246,6 +246,7 @@ export default {
                         this.checkData = false
                     }
                     console.log(this.checkData)
+                    this.getVideoRecommend(result.data.result.category_id)
                 }
             })
         },
@@ -270,13 +271,17 @@ export default {
                         this.checkData = false
                     }
                     console.log(this.checkData)
+                    this.getVideoRecommend(result.data.result.category_id)
                 }
             })
         },
-        getVideoRecommend(){
-            service.get(configAPI.recommend_url + this.videoId,{
-            params:{
-                size:4
+        getVideoRecommend(id){
+            service.get(configAPI.recommend_url,{
+            params: {
+                'filter[category_id]': id,
+                'filter[status]': 1,
+                'page': 1,
+                'pagesize':4,
             }
         }).then(result => {
             // console.log('是我')
@@ -334,8 +339,6 @@ export default {
         }else{
             this.getVideoInfor()
         }
-
-        this.getVideoRecommend()
               
     },
 }

@@ -105,6 +105,7 @@ var router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log('路由跳转', to)
   const whiteList = ['/login', '/register', '/haiUserRegister', '/retrievePassword', '/resetpassword', '/passwordSuccess', '/userAgreement', '/sharevideo'] // todo
   if (whiteList.indexOf(to.path) > -1) {
     next()
