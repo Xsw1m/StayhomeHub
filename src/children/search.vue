@@ -236,7 +236,7 @@ export default {
           this.page = 1
             service.get(configAPI.getvideolist,{
             params: {
-                        'keywords': this.search_result,
+                        'filter[title]': this.search_result,
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -258,7 +258,7 @@ export default {
             console.log('搜索结果： ' + this.search_result)
             service.get(configAPI.getvideolist,{
             params: {
-                        'keywords': this.search_result,
+                        'filter[title]': this.search_result,
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -292,7 +292,7 @@ export default {
         }else{
         service.get(configAPI.getvideolist,{
             params: {
-                        'keywords': this.search_result,
+                        'filter[title]': this.search_result,
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }

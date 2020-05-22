@@ -14,7 +14,7 @@
                 v-for="(i,index) in allcategory"
                 :class="[category==i.id?'details_category_style':'details_category']"
                 @click="getcategory(i.id)"
-                >{{i.column_name}}
+                >{{i.name}}
             </div>
         </div>
     
@@ -395,7 +395,7 @@ export default {
                 console.log('这是请求的种类'+this.listid)
                 this.allcategory = result.data.result.list
                 this.iscolumn = this.allcategory.length
-                // console.log('是否存在子栏目')
+                console.log('是否存在子栏目', result)
                 // console.log(this.iscolumn)
             }).catch((err) => {
                 
@@ -795,7 +795,6 @@ margin-right: 2.701%;
 }
 .category{
     display: flex;
-    justify-content: space-between;
     width: 42.5%;
 }
 .year{
@@ -808,6 +807,9 @@ margin-right: 2.701%;
     font-size: 0.73vw;
     display: flex;
     align-items: center;
+}
+.details_category, .details_category_style {
+    margin-right: 7%;
 }
 .details_category_style,.details_year_style{
     cursor:pointer;

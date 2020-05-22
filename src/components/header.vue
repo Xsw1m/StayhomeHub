@@ -25,7 +25,7 @@
                         </div>
                         
                     </div>
-                    <div class="search_dropdown_hot" style="margin-bottom:2.3364486%;">
+                    <!--<div class="search_dropdown_hot" style="margin-bottom:2.3364486%;">
                         <span class="search_dropdown_header">热门搜索</span>
                         <div class="tr">
                             <div class="option1">1</div>
@@ -62,7 +62,7 @@
                             <div class="option3">3</div>
                             <span class="content" id="content" @mousedown="search_push" tabindex="0">{{search_recommend[2].title}}</span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
         </div>
@@ -117,9 +117,11 @@ export default {
         },
         focus(){
             this.seen = true;
+            console.log('打开搜索推荐下拉')
         },
         blur(){
             this.seen = false;
+            console.log('关闭搜索推荐下拉')
         },
         search_push(){
             var el = event.currentTarget;
