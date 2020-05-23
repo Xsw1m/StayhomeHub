@@ -217,9 +217,11 @@ export default {
             }else{
                 this.operate = 2
             }
-            service.post(configAPI.collOneVideo_url+'operate='+this.operate+'&id='+this.videoId,{
-                
-            }).then(result=>{
+            let params = {
+                'video_id': this.videoId,
+                'operate': this.operate
+            }
+            service.post(configAPI.collOneVideo_url, qs.stringify(params)).then(result=>{
                 console.log(result)
             })
         },
@@ -278,7 +280,7 @@ export default {
         getVideoRecommend(id){
             service.get(configAPI.recommend_url,{
             params: {
-                'filter[category_id]': id,
+                'category_id': id,
                 'filter[status]': 1,
                 'page': 1,
                 'pagesize':4,

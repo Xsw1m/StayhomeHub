@@ -116,6 +116,7 @@ import configAPI from '../API/configAPI.js'
 import service from '../API/request.js'
 import downPopup from '../components/downPopup.vue'
 import popup from '../components/popup.vue'
+import Qs from 'qs'
 export default {
     components: {
         'homeaside':homeasider,
@@ -224,8 +225,13 @@ export default {
         } else {
             this.operate = 1
         }
-        service.post(configAPI.postcollection+'operate='+this.operate+'&id='+data.id,{
-        }) .then((result) => {
+        let params = {
+            'video_id': data.id,
+            'operate': this.operate
+        }
+        service.post(configAPI.postcollection,
+            Qs.stringify(params)
+        ) .then((result) => {
             console.log(result)
             data.is_collect = !data.is_collect
         }).catch((err) => {

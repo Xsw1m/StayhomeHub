@@ -72,7 +72,7 @@ export default {
             columns:'',
             videoId:'',
             allmonth:[
-                {id:1,item:'1月'},{id:2,item:'2月'},{id:3,item:'3月'},{id:4,item:'4月'},{id:5,item:'5月'},{id:6,item:'6月'},{id:7,item:'7月'},{id:8,item:'8月'},{id:9,item:'9月'},{id:10,item:'10月'},{id:11,item:'11月'},{id:12,item:'12月'},
+                {id: '01',item:'1月'},{id:'02',item:'2月'},{id:'03',item:'3月'},{id:'04',item:'4月'},{id:'05',item:'5月'},{id:'06',item:'6月'},{id:'07',item:'7月'},{id:'08',item:'8月'},{id:'09',item:'9月'},{id:10,item:'10月'},{id:11,item:'11月'},{id:12,item:'12月'},
             ],
             all00years:[
                 {id:2009,item:'2009年'},{id:2008,item:'2008年'},{id:2007,item:'2007年'},{id:2006,item:'2006年'},{id:2005,item:'2005年'},{id:2004,item:'2004年'},{id:2003,item:'2003年'},{id:2002,item:'2002年'},{id:2001,item:'2001年'},{id:2000,item:'2000年'}
@@ -132,6 +132,7 @@ export default {
         getVideo(data){
             console.log(data)
             // 检查此视频有没有观看权限
+            const _this = this
             if(data.user_watch_jurisdiction == 1){
                 //这里是把视频的id传送过去
                 var person = {
@@ -139,7 +140,7 @@ export default {
                 }
                 this.$router.push({name:'video',query:person})
             }else{
-                this.$refs.child.chang()
+                _this.$refs.child.chang()
                 this.videoId = data.id
             }
         },

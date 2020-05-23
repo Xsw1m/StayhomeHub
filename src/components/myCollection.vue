@@ -37,7 +37,7 @@
             <div style="width:100%;height:100%;display:flex;justify-content: flex-start; flex-wrap: wrap">
                 
                 <!-- 循环视频div -->
-                <div v-for='(item,index) in mainInfor' :key="item.video_id" class="mainInfor aSty" @mouseenter="onFloor(item.record_id)" @mouseleave="offFloor()">
+                <div v-for='(item,index) in mainInfor' :key="item.id" class="mainInfor aSty" @mouseenter="onFloor(item.id)" @mouseleave="offFloor()">
                     <div style="width:100%;height:100%;position:relative">
                         <div class="img">
                             <img  v-bind:src='item.cover' alt="" style="width:100%;height:100%">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <!-- item.record_id == checkFloor -->
-                        <div v-if="item.record_id == checkFloor" class="floor">
+                        <div v-if="item.id == checkFloor" class="floor">
                             <div class="floorTop">
                                 <div class="floor-title"  >
                                     <span >{{item.title}}</span>
@@ -78,9 +78,9 @@
                                     <div class="personal-Record-coll floorIcon" style=" visibility: hidden;">
 
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(item.id)">
+                                    <!-- <div class="personal-Record-down floorIcon" @click="downpopup(item.id)">
 
-                                    </div>
+                                    </div> -->
                                     <div class="personal-Record-del floorIcon" @click="delThisColl(index,item.id)">
 
                                     </div>
@@ -103,7 +103,7 @@
             <div style="width:100%;display:flex;justify-content:center;margin-bottom: 40px">
                 <el-pagination
                     @current-change="handleCurrentChange"
-                    :hide-on-single-page= 'true'
+                    :hide-on-single-page= "true"
                     background
                     layout = "prev, pager, next"
                     :page-size = 20
@@ -119,7 +119,7 @@ import Vue from 'vue'
 //导入API
 import configAPI from '../API/configAPI.js'
 import service from '../API/request.js'
-
+import Qs from 'qs'
 //导入下载和观看的弹窗
 import downPopup from '../components/downPopup.vue'
 import popup from '../components/popup.vue'
@@ -157,7 +157,7 @@ export default {
     },
     methods:{
         onFloor(id){
-            // console.log(id)
+            console.log('某一个收藏', id)
             this.checkFloor = id
         },
         offFloor(){
@@ -205,11 +205,13 @@ export default {
 
             this.$confirm('确认删除？')
             .then(()=> {
-                
-                service.post(configAPI.collOneVideo_url + 'operate=2' + '&id=' + item_videoid,{
-                    
-                }).then(result=>{
-                    
+                let params = {
+                    'video_id': item_videoid,
+                    'operate': 2
+                }
+                service.post(configAPI.collOneVideo_url,
+                    Qs.stringify(params)
+                ).then(result=>{
                     this.mainInfor.splice(index,1)
                     this.myCollNumber--
                     this.paginationNumber --
@@ -231,7 +233,7 @@ export default {
             }).then(result=>{
                 let {data} = result;
                 // let {result} = data
-                console.log(data.result);
+                console.log('获取所有收藏视频：', data.result);
                 // this.everyClass = data.result
                 this.mainInfor = data.result.list
                 this.myCollNumber = this.mainInfor.length

@@ -25,22 +25,21 @@
     <div class="card2">
         <div class="all_year aSty" @click="get_allyear">时间</div>
         <div class="year">
-            <!-- 其他时间列表 -->
+            <!-- 其他时间列表 v-if="listid != 13"-->
             <div 
                 v-for="(i,index) in allyear"
-                v-if="listid != 13"
                 :class="[year==i.time_buckets?'details_year_style':'details_year']"
                 @click="getyear(i.time_buckets)"
                 >{{i.item}}
             </div>
             <!-- 人单合一的时间列表 -->
-            <div 
+            <!--<div 
                 v-for="(i,index) in POOPallyear"
                 v-if="listid === 13 "
                 :class="[year==i.time_buckets?'details_year_style':'details_year']"
                 @click="getyear(i.time_buckets)"
                 >{{i.item}}
-            </div>
+            </div>-->
         </div>
         <div style="display:flex;align-items:center;margin-left: auto;justify-content: space-between;width: 4%;">
             <img :src="[this.showModel===1?require('../../src/img/showModel1_focus.png'):require('../../src/img/showModel1.png')]" alt="" @click="changeshowModel1">
@@ -183,6 +182,7 @@ import Vue from 'vue'
 //导入API
 import configAPI from '../API/configAPI.js'
 import service from '../API/request.js'
+import Qs from 'qs'
 const axios = require('axios');
 export default {
     data () {
@@ -206,7 +206,7 @@ export default {
         allcategory: '',
         iscolumn: '',
         allyear:[
-        {item:'2019',time_buckets:'2019'},{item:'2018',time_buckets:'2018'},{item:'2017',time_buckets:'2017'},{item:'2016',time_buckets:'2016'},{item:'1984-2015',time_buckets:'2015'},
+        {item:'2020',time_buckets:'2020'},{item:'2019',time_buckets:'2019'},{item:'2018',time_buckets:'2018'},{item:'2017',time_buckets:'2017'},{item:'2016',time_buckets:'2016'},{item:'2015',time_buckets:'2015'},{item:'2014',time_buckets:'2014'},{item:'2013',time_buckets:'2013'},{item:'2012',time_buckets:'2012'},{item:'2011',time_buckets:'2011'},{item:'2010',time_buckets:'2010'},
         ],
         POOPallyear:[
         {item:'2019',time_buckets:'2019'},{item:'2018',time_buckets:'2018'},{item:'2017',time_buckets:'2017'},
@@ -290,8 +290,13 @@ export default {
         } else {
             this.operate = 1
         }
-        service.post(configAPI.postcollection+'operate='+this.operate+'&id='+data.id,{
-        }) .then((result) => {
+        let params = {
+            'video_id': data.id,
+            'operate': this.operate
+        }
+        service.post(configAPI.postcollection,
+            Qs.stringify(params)
+        ) .then((result) => {
             console.log(result)
             data.is_collect = !data.is_collect
         }).catch((err) => {
@@ -307,7 +312,7 @@ export default {
             if(this.category>0&&this.year>0){
                 service.get(configAPI.getvideolist,{
                     params: {
-                                'filter[category_id]': this.category,
+                                'category_id': this.category,
                                 'filter[status]': 1,
                                 'page':this.page,
                                 'pagesize':this.pagesize,
@@ -330,7 +335,7 @@ export default {
             }else if(this.category>0){
                 service.get(configAPI.getvideolist,{
                     params: {
-                                'filter[category_id]': this.category,
+                                'category_id': this.category,
                                 'filter[status]': 1,
                                 'page':this.page,
                                 'pagesize':this.pagesize,
@@ -365,7 +370,7 @@ export default {
             }else{
                 service.get(configAPI.getvideolist,{
                     params: {
-                        'filter[category_id]': this.listid,
+                        'category_id': this.listid,
                         'filter[status]': 1,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -396,13 +401,13 @@ export default {
                 this.allcategory = result.data.result.list
                 this.iscolumn = this.allcategory.length
                 console.log('是否存在子栏目', result)
-                // console.log(this.iscolumn)
+                console.log('子栏目length', this.allcategory.length)
             }).catch((err) => {
                 
             });
             service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': this.listid,
+                    'category_id': this.listid,
                     'filter[status]': 1,
                     'page':this.page,
                     'pagesize':this.pagesize,
@@ -441,7 +446,7 @@ export default {
             // 获取父栏目下的视频
             service.get(configAPI.getvideolist,{
             params: {
-                'filter[category_id]': this.listid,
+                'category_id': this.listid,
                 'filter[status]': 1,
                 'page':this.page,
                 'pagesize':this.pagesize,
@@ -464,7 +469,7 @@ export default {
             if(this.year>2){
             service.get(configAPI.getvideolist,{
                 params: {
-                        'filter[category_id]': this.category,
+                        'category_id': this.category,
                         'filter[status]': 1,
                         'time_buckets': this.year,
                         'page':this.page,
@@ -485,7 +490,7 @@ export default {
             }else{
             service.get(configAPI.getvideolist,{
                 params: {
-                        'filter[category_id]': this.category,
+                        'category_id': this.category,
                         'filter[status]': 1,
                         // 'time_buckets': this.year
                         'page':this.page,
@@ -512,7 +517,7 @@ export default {
                 if(this.category>0){
                 service.get(configAPI.getvideolist,{
                     params: {
-                        'filter[category_id]': this.category,
+                        'category_id': this.category,
                         'filter[status]': 1,
                         'time_buckets': this.year,
                         'page':this.page,
@@ -530,7 +535,7 @@ export default {
                 }else{
                 service.get(configAPI.getvideolist,{
                     params: {
-                        'filter[category_id]': this.category,
+                        'category_id': this.category,
                         'filter[status]': 1,
                         'time_buckets': this.year,
                         'page':this.page,
@@ -549,7 +554,7 @@ export default {
             }else{
                 service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': this.listid,
+                    'category_id': this.listid,
                     'filter[status]': 1,
                     'page':this.page,
                     'pagesize':this.pagesize,
@@ -800,7 +805,7 @@ margin-right: 2.701%;
 .year{
     display: flex;
     justify-content: space-between;
-    width: 30%;
+    width: 60%;
 }
 .details_category,.details_year{
     cursor:pointer;

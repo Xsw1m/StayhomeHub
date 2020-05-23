@@ -116,7 +116,7 @@ import downPopup from '../components/downPopup.vue'
 import popup from '../components/popup.vue'
 import service from '../API/request';
 import configAPI from '../API/configAPI';
-
+import Qs from 'qs'
 
 export default {
     //弹窗命名
@@ -159,9 +159,13 @@ export default {
             }else{
                 this.operate = 2
             }
-            service.post(configAPI.collOneVideo_url+'operate='+this.operate+'&id='+data.id,{
-                
-            }).then(result=>{
+            let params = {
+                'video_id': data.id,
+                'operate': this.operate
+            }
+            service.post(configAPI.collOneVideo_url,
+                Qs.stringify(params)
+            ).then(result=>{
                 console.log(result)
             })
         },

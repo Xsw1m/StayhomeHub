@@ -33,6 +33,7 @@ export default {
         return {
             isChecked:'1',
             navmenu:[
+                {id:2020,value:'2020'},
                 {id:2019,value:'2019'},
                 {id:2018,value:'2018'},
                 {id:2017,value:'2017'},
@@ -43,9 +44,6 @@ export default {
                 {id:2012,value:'2012'},
                 {id:2011,value:'2011'},
                 {id:2010,value:'2010'},
-                {id:'00',value:'00年代'},
-                {id:'90',value:'90年代'},
-                {id:'80',value:'80年代'},
             ],
         }
     },

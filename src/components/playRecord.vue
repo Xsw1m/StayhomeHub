@@ -6,8 +6,8 @@
             <div class="data" v-if="(/^[1-9]\d*$/.test(item.total)) && item!=='total'">
                 <div class="data_data">
                     <span v-if="i == 'today'">今天</span>
-                    <span v-if="i == 'yesterday'">昨天</span>
-                    <span v-if="i == 'within_a_week'">一周前</span>
+                    <span v-if="i == 'yesterday'">本月</span>
+                    <span v-if="i == 'within_a_week'">往期历史</span>
                 </div>
                 <div class="date_number">
                     <span>（{{item.total}}）</span>
@@ -16,7 +16,7 @@
 
             <div v-if="(/^[1-9]\d*$/.test(item.total)) && item!=='total'" style="width:100%;height:100%;display:flex;justify-content: flex-start; flex-wrap: wrap">
                 
-                <div v-for='(item2,j) in item.list' :key="item2.id" class="mainInfor aSty" @mouseenter="onFloor(item2.record_id)" @mouseleave="offFloor()">
+                <div v-for='(item2,j) in item.list' :key="item2.id" class="mainInfor aSty" @mouseenter="onFloor(item2.id)" @mouseleave="offFloor()">
                     <div style="width:100%;height:100%;position:relative">
                         <div class="img">
                             <img  v-bind:src='item2.cover' alt="" style="width:100%;height:100%">
@@ -34,8 +34,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- item2.record_id === checkFloor -->
-                        <div v-if="item2.record_id === checkFloor" class="floor">
+                        <!-- item2.id === checkFloor -->
+                        <div v-if="item2.id === checkFloor" class="floor">
                             <div class="floorTop" >
                                 <div class="floor-title"  >
                                     <span class="woshishi">{{item2.title}}</span>
@@ -100,7 +100,7 @@ import service from '../API/request.js'
 //导入下载和观看的弹窗
 import downPopup from '../components/downPopup.vue'
 import popup from '../components/popup.vue'
-
+import Qs from 'qs'
 import { setTimeout } from 'timers';
 import { log } from 'util';
 
@@ -164,9 +164,13 @@ export default {
             }else{
                 this.operate = 2
             }
-            service.post(configAPI.collOneVideo_url+'operate='+this.operate+'&id='+data.id,{
-                
-            }).then(result=>{
+            let params = {
+                'video_id': data.id,
+                'operate': this.operate
+            }
+            service.post(configAPI.collOneVideo_url,
+                Qs.stringify(params)
+            ).then(result=>{
                 console.log(result)
             })
         },
@@ -180,10 +184,14 @@ export default {
                 // console.log(i,j)
                 // this.data[i].list.splice(j,1)
                 // this.data[i].total--
-                console.log(this.data[i].list[j].record_id)
-                service.delete(configAPI.del_playerRecord_url+this.data[i].list[j].record_id,{
-                    
-                }).then(result=>{
+                // console.log('删除记录id1', this.data, i , j)
+                // console.log('删除记录id2', this.data[i].list[j])
+                let params = {
+                    'video_id': this.data[i].list[j].id
+                }
+                service.post(configAPI.del_playerRecord_url,
+                    Qs.stringify(params)
+                ).then(result=>{
                     console.log('删除成功')
                     console.log(i,j)
                     this.data[i].list.splice(j,1)
@@ -209,7 +217,7 @@ export default {
             // let {result} = data
             // console.log(data.result);
             this.data = data.result
-            console.log(this.data)
+            console.log('历史记录', this.data)
         }).catch((err)=>{
             console.log(err)
         })

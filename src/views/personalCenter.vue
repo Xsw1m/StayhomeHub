@@ -61,7 +61,7 @@
                     </div>
                 </button>
 
-                <button class="leftBotton" @click="jump8()">
+                <!-- <button class="leftBotton" @click="jump8()">
                     <div class="changDiv" v-if="checkPag == 8"  >
                         <div class="myDiv" style="background-color:#ebf8f5">
                             <div class="myDiv2" >
@@ -101,7 +101,7 @@
                         </div>
                         <div class="sideDiv" ></div>
                     </div>
-                </button>
+                </button> -->
                 
                 <button class="leftBotton" @click="jump4()" >
                     <div class="changDiv" v-if="checkPag == 4"  >
@@ -124,7 +124,7 @@
                     </div>
                 </button>
 
-                <button class="leftBotton" @click="jump5()">
+                <!-- <button class="leftBotton" @click="jump5()">
                     <div class="changDiv" v-if="checkPag == 5"  >
                         <div class="myDiv" style="background-color:#ebf8f5">
                             <div class="myDiv2" >
@@ -164,7 +164,7 @@
                         </div>
                         <div class="sideDiv" ></div>
                     </div>
-                </button>
+                </button> -->
 
                 <button class="leftBotton" @click="jump6()" >
                     <div class="changDiv" v-if="checkPag == 6"  >
@@ -292,9 +292,9 @@ export default {
         this.user_name = this.real_name 
         this.user_mobile = this.phone 
         // 获取消息中心的提醒数量   如果为0的话就不用再重新获取了，因为获取方法里写的是统计，否则会叠加上去的
-        if(this.$store.state.news == 0){
-            this.$store.dispatch('getdata')
-        }
+        // if(this.$store.state.news == 0){
+        //     this.$store.dispatch('getdata')
+        // }
     }
 }
 </script>

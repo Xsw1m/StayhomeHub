@@ -168,7 +168,7 @@ export default {
                 this.copy(this.temp)
                 this.dialogVisible = false
             }).catch((err) => {
-                console.log(err)
+                console.log('出错2', err)
             })
         },
         // 一键复制功能
@@ -275,7 +275,7 @@ export default {
                     this.randomCode()
                 }
             }).catch((err) => {
-                console.log(err)
+                console.log('出错1', err)
             })
             // this.dialogVisible = true
         },
@@ -323,7 +323,9 @@ export default {
                     }
                 });
                 this.$store.commit("clear")
-            })   
+            }).catch((err) => {
+                console.log('出错3', err)
+            });
             
         },
         handleCurrentChange(val) {

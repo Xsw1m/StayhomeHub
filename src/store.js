@@ -34,9 +34,11 @@ const store = new Vuex.Store({
     // }
     reduction (state) {
       state.news--
+      console.log('2.已读消息', state.news)
     },
     clear (state) {
       state.news = 0
+      console.log('3.清空消息', state.news)
     }
   },
   // 单纯的复杂的业务逻辑，可以调用mutations的方法
@@ -62,7 +64,7 @@ const store = new Vuex.Store({
       service.get(configAPI.getAllNews_url, {
       }).then(result => {
         result.data.result.list.forEach(element => {
-          // console.log(element)
+          console.log('', element)
           if (element.status === 2) {
             this.state.news++
           }

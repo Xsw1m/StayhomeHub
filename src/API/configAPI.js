@@ -2,10 +2,10 @@
 import base_url from '../API/BaseApi.js'
 
 const login_url = '/user/login' // 登录所需要的接口 √
-const PlayerRecord_url = '/browser/list' // 获取播放记录
-const del_playerRecord_url = '/browser/delete/' // 删除指定id的浏览记录
-const collOneVideo_url = '/collection/operate?' // 收藏指定id的视频
-const getCollRecord_url = '/collection/list' // 获取所有的收藏记录
+const PlayerRecord_url = '/view' // 获取播放记录
+const del_playerRecord_url = '/view' // 删除指定id的浏览记录
+const collOneVideo_url = '/meta' // 收藏指定id的视频
+const getCollRecord_url = '/meta?' // 获取所有的收藏记录
 const del_allcoll = '/collection/delete/all' // 删除所有的收藏记录
 const getVideoInfor_url = '/video/' // 获取指定id的视频的所有信息
 const upVideoprogress_url = '/browser/record' // 定时记录视频观看进度
@@ -41,12 +41,12 @@ const getvideoeco = '/column/list/'
 const getcategory = '/column/list/'
 const getvideolist = '/video'
 const gethomepageselected = '/video/list/selection'
-const gettimeaxis = '/video/time/search'
+const gettimeaxis = '/video'
 const logout = '/user/logout'
 const getsearch_hot = '/video/list/hot'
 const getsearch_recommend = '/video/list/recommend'
-const postcollection = '/collection/operate?'
-const bannerimg = '/banner/list'
+const postcollection = '/meta?'
+const bannerimg = '/banner'
 // 分享视频
 const share_apply = '/share/apply/create'
 const share_validate = '/share/apply/validate'

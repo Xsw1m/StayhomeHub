@@ -164,23 +164,23 @@ export default {
     created(){
         this.updata_search()
         // 获取搜索列表 推荐搜索类
-        service.get(configAPI.getsearch_recommend,{
+        // service.get(configAPI.getsearch_recommend,{
                 
-            }).then((result) => {
-                this.search_recommend = result.data.result.list
-                // console.log(this.selection)
-            }).catch((err) => {
+        //     }).then((result) => {
+        //         this.search_recommend = result.data.result.list
+        //         // console.log(this.selection)
+        //     }).catch((err) => {
                 
-            });
-        service.get(configAPI.getsearch_hot,{
+        //     });
+        // service.get(configAPI.getsearch_hot,{
 
-        }).then((result) => {
-            let data = result
-            this.search_hot = data.data.result
-            // console.log(data)
-        }).catch((err) => {
+        // }).then((result) => {
+        //     let data = result
+        //     this.search_hot = data.data.result
+        //     // console.log(data)
+        // }).catch((err) => {
             
-        });
+        // });
     },
     components:{
         'user-drop': user_drop,

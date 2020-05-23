@@ -178,6 +178,7 @@ import Vue from 'vue'
 // 导入API
 import configAPI from '../../API/configAPI.js'
 import service from '../../API/request.js'
+import Qs from 'qs'
 export default {
   data () {
     return {
@@ -327,13 +328,17 @@ export default {
       } else {
         this.operate = 1
       }
-      service.post(configAPI.postcollection + 'operate=' + this.operate + '&id=' + data.id, {
-      }).then((result) => {
-        console.log(result)
-        data.is_collect = !data.is_collect
+      let params = {
+            'video_id': data.id,
+            'operate': this.operate
+        }
+      service.post(configAPI.postcollection,
+          Qs.stringify(params)
+      ) .then((result) => {
+          console.log(result)
+          data.is_collect = !data.is_collect
       }).catch((err) => {
-        console.log(err)
-      })
+      });
       // 更新数据
     },
     // 分页

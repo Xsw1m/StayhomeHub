@@ -6,7 +6,7 @@
         <div class="banner">
             <el-carousel trigger="click" height="23.95834vw">
             <el-carousel-item v-for="(item,index) in bannerimg" :key="index+1">
-                <img :src="item.cover" alt="" style="height:100%;width:100%;" @click="bannertovideo(item)">
+                <img :src="item.pic" alt="" style="height:100%;width:100%;" @click="bannertovideo(item)">
             </el-carousel-item>
             </el-carousel>
         </div>
@@ -669,6 +669,7 @@ import homeaside from '../children/home_aside.vue'
 import downPopup from '../components/downPopup.vue'
 import popup from '../components/popup.vue'
 import configAPI from '../API/configAPI.js'
+import Qs from 'qs'
 import service from '../API/request.js'
 export default {
     components: {
@@ -678,11 +679,7 @@ export default {
     },
     data () {
         return {
-            bannerimg:[ 
-                {id: 0, cover: '../../src/img/banner1.jpg'},
-                {id: 1, cover: '../../src/img/banner2.jpg'},
-                {id: 2, cover: '../../src/img/banner3.jpg'}
-            ],
+            bannerimg:[],
             checkFloor:0,
             isFloor:0,
             videoId:'',
@@ -690,98 +687,7 @@ export default {
             operate:'',
             status:0,
             item:'',
-            selection: [
-                {
-                    audit_explain: "",
-                    audit_time: "2019-10-31 11:20:32",
-                    column_name: "大会用片",
-                    cover: "https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com/video/logo.png",
-                    cover_s: "https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com/video/logo.png",
-                    id: 15766,
-                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
-                    is_collect: false,
-                    shooting_time: "2019-10-19",
-                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
-                    storage_class: 0,
-                    title: "测试首页精选",
-                    union_id: 0,
-                    user_watch_jurisdiction: 1,
-                    video_duration: "00:03:44",
-                    weight: 0
-                },
-                {
-                    audit_explain: "",
-                    audit_time: "2019-10-31 11:20:32",
-                    column_name: "大会用片",
-                    cover: "../../src/img/undefinds_img.png",
-                    cover_s: "../../src/img/undefinds_img.png",
-                    id: 137,
-                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
-                    is_collect: false,
-                    shooting_time: "2019-10-19",
-                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
-                    storage_class: 0,
-                    title: "测试首页精选",
-                    union_id: 0,
-                    user_watch_jurisdiction: 1,
-                    video_duration: "00:03:44",
-                    weight: 0
-                },
-                {
-                    audit_explain: "",
-                    audit_time: "2019-10-31 11:20:32",
-                    column_name: "大会用片",
-                    cover: "../../src/img/undefinds_img.png",
-                    cover_s: "../../src/img/undefinds_img.png",
-                    id: 16002,
-                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
-                    is_collect: false,
-                    shooting_time: "2019-10-19",
-                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
-                    storage_class: 0,
-                    title: "测试首页精选",
-                    union_id: 0,
-                    user_watch_jurisdiction: 1,
-                    video_duration: "00:03:44",
-                    weight: 0
-                },
-                {
-                    audit_explain: "",
-                    audit_time: "2019-10-31 11:20:32",
-                    column_name: "大会用片",
-                    cover: "../../src/img/undefinds_img.png",
-                    cover_s: "../../src/img/undefinds_img.png",
-                    id: 16004,
-                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
-                    is_collect: false,
-                    shooting_time: "2019-10-19",
-                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
-                    storage_class: 0,
-                    title: "测试首页精选",
-                    union_id: 0,
-                    user_watch_jurisdiction: 1,
-                    video_duration: "00:03:44",
-                    weight: 0
-                },
-                {
-                    audit_explain: "",
-                    audit_time: "2019-10-31 11:20:32",
-                    column_name: "大会用片",
-                    cover: "../../src/img/undefinds_img.png",
-                    cover_s: "../../src/img/undefinds_img.png",
-                    id: 16005,
-                    introduction: " 测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选测试首页精选",
-                    is_collect: false,
-                    shooting_time: "2019-10-19",
-                    source_url: "https://wangzhanmulu.s3.cn-northwest-1.amazonaws.com.cn/video/2060/100428188.mp4",
-                    storage_class: 0,
-                    title: "测试首页精选",
-                    union_id: 0,
-                    user_watch_jurisdiction: 1,
-                    video_duration: "00:03:44",
-                    weight: 0
-                },
-            ],
+            selection: [],
             propaganda: [],
             dynamics: [],
             Mschool: [],
@@ -883,8 +789,13 @@ export default {
             } else {
                 this.operate = 1
             }
-            service.post(configAPI.postcollection+'operate='+this.operate+'&id='+data.id,{
-            }) .then((result) => {
+            let params = {
+            'video_id': data.id,
+            'operate': this.operate
+            }
+            service.post(configAPI.postcollection,
+                Qs.stringify(params)
+            ) .then((result) => {
                 console.log(result)
                 data.is_collect = !data.is_collect
             }).catch((err) => {
@@ -895,30 +806,29 @@ export default {
     created(){
         this.judge()
         // 获取焦点图
-        // service.get(configAPI.bannerimg,{
-
-        // }).then((result) => {
-        //     console.log('banner: ')
-        //     this.bannerimg = result.data.result
-        //     console.log(this.bannerimg)
-        //     console.log('end')
-        // }).catch((err) => {
-            
-        // });
-        //获取首页精选栏目
-        // service.get(configAPI.gethomepageselected,{
+        service.get(configAPI.bannerimg,{
+            'filter[status]': 1,
+            'include': 'video'
+        }).then((result) => {
+            console.log('banner: ')
+            this.bannerimg = result.data.result
+            // console.log('banner详情信息', this.bannerimg)
+        }).catch((err) => {
+            console.log('错误', err)
+        });
+        // 获取首页精选栏目
+        service.get(configAPI.gethomepageselected,{
+            }).then((result) => {
+                // let {data} = result;
+                this.selection = result.data.result.list
+                console.log('获取精选栏目', this.selection)
+            }).catch((err) => {
                 
-        //     }).then((result) => {
-        //         // let {data} = result;
-        //         this.selection = result.data.result.list
-        //         // console.log(this.selection)
-        //     }).catch((err) => {
-                
-        //     });
+            });
         //获取首页宣传栏目
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 1,
+                    'category_id': 1,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -933,7 +843,7 @@ export default {
         //获取首页链群动态
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 2,
+                    'category_id': 2,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -947,7 +857,7 @@ export default {
         //获取首页舞蹈show
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 3,
+                    'category_id': 3,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -961,7 +871,7 @@ export default {
         //获取首页生活live
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 4,
+                    'category_id': 4,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -975,7 +885,7 @@ export default {
         //获取首页科技数码
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 5,
+                    'category_id': 5,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -989,7 +899,7 @@ export default {
         //获取首页Vlog记录
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 6,
+                    'category_id': 6,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -1003,7 +913,7 @@ export default {
         //获取首页鬼畜
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 7,
+                    'category_id': 7,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -1017,7 +927,7 @@ export default {
         //获取首页游戏
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 8,
+                    'category_id': 8,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -1031,7 +941,7 @@ export default {
         //获取首页动漫番剧
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 9,
+                    'category_id': 9,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
@@ -1045,7 +955,7 @@ export default {
         //获取首页影视
         service.get(configAPI.getvideolist,{
                 params: {
-                    'filter[category_id]': 10,
+                    'category_id': 10,
                     'filter[status]': 1,
                     'page': 1,
                     'pagesize':5,
