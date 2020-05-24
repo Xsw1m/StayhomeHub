@@ -2,7 +2,7 @@
     <div class="container2">
         <ecoaside @req2="req2"></ecoaside>
         <div class="main">
-            <!-- 验证页 -->
+            <!-- 验证页 
             <div class="checked" v-if="ischeck == 1 && allcheck != 1">
                 <el-row style="text-align: center;margin-bottom:5%;">
                     <span style="color: #AEAEAE">
@@ -28,9 +28,10 @@
                 <el-row style="text-align: center;">
                     <span style="color: #AEAEAE">视频观看邀请码可联系视频库运营人员申请～</span>
                 </el-row>
-            </div>
-            <!-- 内容页 -->
-            <div class="container3" v-if="ischeck == 2 || allcheck == 1">
+            </div>-->
+            <!-- 内容页 
+            <div class="container3" v-if="ischeck == 2 || allcheck == 1">-->
+            <div class="container3">
                 <!-- 筛选栏目 -->
                 <div class="card2">
                     <div class="all_year aSty" @click="get_allyear">时间</div>
@@ -193,10 +194,10 @@ export default {
       page: 1,
       year: 0,
       allyear: [
-        { item: '2019', time_buckets: '2019' }, { item: '2018', time_buckets: '2018' }, { item: '2017', time_buckets: '2017' }, { item: '2016', time_buckets: '2016' }, { item: '1984-2015', time_buckets: '2015' }
+        { item: '每日', time_buckets: 'day' }, { item: '每周', time_buckets: 'week' }, { item: '每月', time_buckets: 'month' }, { item: '每年', time_buckets: 'year' }, { item: '全部', time_buckets: 'all' }
       ],
       propaganda: [],
-      listid: 47,
+      listid: 'collect',
       column_name: '首席纪录片',
       videoId: '',
       isshow: false
@@ -212,6 +213,7 @@ export default {
     const phone1 = window.localStorage.getItem('phone').split('****')[0]
     const phone2 = window.localStorage.getItem('phone').split('****')[1]
     const phone = phone1 + phone2
+    this.getvideo()
     console.log('手机号', phone)
     if (phone == 1786364 || phone == 1380363) {
       window.localStorage.setItem('ischeck', 1)
@@ -282,22 +284,22 @@ export default {
       this.code = null
       this.listid = id
       this.column_name = name
-      var checked = window.localStorage.getItem('column' + id)
-      if (this.allcheck == 1) {
-        this.ischeck = 2
-      } else {
-        if (!checked) {
-          window.localStorage.setItem('column' + id, 1)
-          this.ischeck = 1
-        } else {
-        // this.ischeck = window.localStorage.getItem('ischeck')
-          if (window.localStorage.getItem('column' + id) == 1) {
-            this.ischeck = 1
-          } else if (window.localStorage.getItem('column' + id) == 2) {
-            this.ischeck = 2
-          }
-        }
-      }
+      // var checked = window.localStorage.getItem('column' + id)
+      // if (this.allcheck == 1) {
+      //   this.ischeck = 2
+      // } else {
+      //   if (!checked) {
+      //     window.localStorage.setItem('column' + id, 1)
+      //     this.ischeck = 1
+      //   } else {
+      //   // this.ischeck = window.localStorage.getItem('ischeck')
+      //     if (window.localStorage.getItem('column' + id) == 1) {
+      //       this.ischeck = 1
+      //     } else if (window.localStorage.getItem('column' + id) == 2) {
+      //       this.ischeck = 2
+      //     }
+      //   }
+      // }
     },
     // 跳转视频详情页的方法，添加了是否含有观看权限
     getVideo (data) {
@@ -348,13 +350,13 @@ export default {
     },
     // 获取视频详情
     updatapagelist () {
-      if (this.year > 0) {
+      if (this.year != 0) {
         service.get(configAPI.getvideolist, {
           params: {
-            column_id: this.listid,
+            rank: this.listid,
             page: this.page,
             pagesize: this.pagesize,
-            time_buckets: this.year
+            time: this.year
           }
         }).then((result) => {
           // console.log("category:"+this.category)
@@ -371,7 +373,7 @@ export default {
       } else {
         service.get(configAPI.getvideolist, {
           params: {
-            column_id: this.listid,
+            rank: this.listid,
             page: this.page,
             pagesize: this.pagesize
           }
@@ -391,14 +393,14 @@ export default {
     getvideo () {
       service.get(configAPI.getvideolist, {
         params: {
-          column_id: this.listid,
+          rank: this.listid,
           page: this.page,
           pagesize: this.pagesize
         }
       }).then((result) => {
         const res = result.data.result
         this.total = res.total
-        // console.log('hhhhhhh', res)
+        console.log('3.getvideo', res)
         this.propaganda = res.list
       }).catch((err) => {
         console.log(err)
@@ -408,15 +410,13 @@ export default {
   watch: {
     // 注意之后，后端做好后 ，if 判断要判断本地储存，此处有需要修改
     listid: function (newVal) {
-    //   console.log('listid', newVal)
+      console.log('listid发生了变化', newVal)
       this.page = 1
       this.category = this.listid
       this.year = 0
-      var checked = window.localStorage.getItem('column' + this.listid)
-      if (this.allcheck == 1) {
-        service.get(configAPI.getvideolist, {
+      service.get(configAPI.getvideolist, {
           params: {
-            column_id: this.listid,
+            rank: this.listid,
             page: this.page,
             pagesize: this.pagesize
           }
@@ -428,41 +428,57 @@ export default {
         }).catch((err) => {
           console.log(err)
         })
-      } else {
-        if (!checked) {
-          this.propaganda = []
-        } else {
-          if (window.localStorage.getItem('column' + this.listid) == 1) {
-          // this.propaganda = []
-          } else if (window.localStorage.getItem('column' + this.listid) == 2) {
-            service.get(configAPI.getvideolist, {
-              params: {
-                column_id: this.listid,
-                page: this.page,
-                pagesize: this.pagesize
-              }
-            }).then((result) => {
-              const res = result.data.result
-              this.total = res.total
-              // console.log('hhhhhhh', res)
-              this.propaganda = res.list
-            }).catch((err) => {
-              console.log(err)
-            })
-          }
-        }
-      }
+      // var checked = window.localStorage.getItem('column' + this.listid)
+      // if (this.allcheck == 1) {
+      //   service.get(configAPI.getvideolist, {
+      //     params: {
+      //       rank: this.listid,
+      //       page: this.page,
+      //       pagesize: this.pagesize
+      //     }
+      //   }).then((result) => {
+      //     const res = result.data.result
+      //     this.total = res.total
+      //     // console.log('hhhhhhh', res)
+      //     this.propaganda = res.list
+      //   }).catch((err) => {
+      //     console.log(err)
+      //   })
+      // } else {
+      //   if (!checked) {
+      //     this.propaganda = []
+      //   } else {
+      //     if (window.localStorage.getItem('column' + this.listid) == 1) {
+      //     // this.propaganda = []
+      //     } else if (window.localStorage.getItem('column' + this.listid) == 2) {
+      //       service.get(configAPI.getvideolist, {
+      //         params: {
+      //           rank: this.listid,
+      //           page: this.page,
+      //           pagesize: this.pagesize
+      //         }
+      //       }).then((result) => {
+      //         const res = result.data.result
+      //         this.total = res.total
+      //         // console.log('hhhhhhh', res)
+      //         this.propaganda = res.list
+      //       }).catch((err) => {
+      //         console.log(err)
+      //       })
+      //     }
+      //   }
+      // }
     },
     year: function (newVal) {
       this.page = 1
       console.log(newVal)
-      if (newVal > 2) {
+      if (newVal != 0) {
         service.get(configAPI.getvideolist, {
           params: {
-            column_id: this.listid,
+            rank: this.listid,
             page: this.page,
             pagesize: this.pagesize,
-            time_buckets: this.year
+            time: this.year
           }
         }).then((result) => {
           // console.log("category:"+this.category)
@@ -479,7 +495,7 @@ export default {
       } else {
         service.get(configAPI.getvideolist, {
           params: {
-            column_id: this.listid,
+            rank: this.listid,
             page: this.page,
             pagesize: this.pagesize
           }

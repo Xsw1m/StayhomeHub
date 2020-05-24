@@ -10,7 +10,7 @@
         <div tabindex="0"
         @click="choosecategory(item.id, item.column_name)"
         v-for="(item, index) in video"
-        :key="item.id"
+        :key="index + 1"
         class="nav1"
         :class="[item.id==pageid?'nav1_style':'nav1']"
         >
@@ -34,11 +34,11 @@ export default {
   // },
   data () {
     return {
-      pageid: '47',
+      pageid: 'collect',
       name: '',
       video: [
-        {id: 47, column_name: "每日", introduction: ""},
-        {id: 48, column_name: "每月", introduction: ""},
+        {id: 'collect', column_name: "收藏榜", introduction: ""},
+        {id: 'view', column_name: "浏览榜", introduction: ""},
       ]
     }
   },

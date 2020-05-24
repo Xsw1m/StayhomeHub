@@ -915,9 +915,7 @@ export default {
                     params["category_id"] = this.ruleForm.region1
                 }
                 //其次编辑提交
-                service.put(configAPI.changVideoInfor + this.adminVideoId + '?' +  Qs.stringify(params) ,{
-
-                }).then( result => {
+                service.patch(configAPI.changVideoInfor + this.adminVideoId, Qs.stringify(params)).then( result => {
                     console.log(result)
                     this.$message.success('修改成功！')
                     this.$refs[formName].resetFields();
@@ -1030,7 +1028,7 @@ export default {
         this.adminVideoId = this.$route.query.videoId
         if(this.adminVideoId !== undefined){
             //获取所有的信息
-            service.get(configAPI.getAdminVideoInfor + this.adminVideoId,{
+            service.get(configAPI.getAdminVideoInfor + this.adminVideoId + '?include=category',{
 
             }).then(result=>{
                 console.log(result)
@@ -1042,18 +1040,27 @@ export default {
                 //     this.ruleForm.auditorCode = result.data.result.auditor_staff_id,     //观看/下载视频审核人工号
                 //     this.ruleForm.auditorNumber = result.data.result.auditor_phone     //观看/下载视频审核人电话
                 // }
-                if((result.data.result.column_group.id.toString()).indexOf(".") == -1){  //不存在二级
-                    this.ruleForm.region1 = result.data.result.column_group.id   // 获取视频分类
-                    console.log(typeof(this.ruleForm.region1))
-                }else{
-                    this.ruleForm.region1 = parseInt(result.data.result.column_group.id.split('.')[0])
+                // if((result.data.result.column_group.id.toString()).indexOf(".") == -1){  //不存在二级
+                //     this.ruleForm.region1 = result.data.result.column_group.id   // 获取视频分类
+                //     console.log(typeof(this.ruleForm.region1))
+                // }else{
+                //     this.ruleForm.region1 = parseInt(result.data.result.column_group.id.split('.')[0])
                     
-                    // console.log(typeof(parseInt(this.ruleForm.region1)))
-                    this.getTwoClass()
-                    this.ruleForm.region2 = parseInt(result.data.result.column_group.id.split('.')[1])
-                }
+                //     // console.log(typeof(parseInt(this.ruleForm.region1)))
+                //     this.getTwoClass()
+                //     this.ruleForm.region2 = parseInt(result.data.result.column_group.id.split('.')[1])
+                // }
                 // console.log((result.data.result.column_group.id.toString()).indexOf("."))
                 
+                if(result.data.result.category.parentId == 0){
+                    console.log('没有二级分类')
+                    this.ruleForm.region1 = result.data.result.category.id
+                } else {
+                    this.ruleForm.region1 = result.data.result.category.parentId
+                    this.getTwoClass()
+                    this.ruleForm.region2 = result.data.result.category.id
+                }
+
                 this.ruleForm.imageUrl2 = result.data.result.cover,   //视频封面横图
                 this.ruleForm.imageUrl = result.data.result.cover_s,   //视频封面竖图
                 this.ruleForm.name = result.data.result.title,   //视频标题
@@ -1067,8 +1074,8 @@ export default {
                 // this.ruleForm.auditorNumber = result.data.result.auditor_phone,       //观看/下载视频审核人电话
                 this.ruleForm.resource = result.data.result.user_watch_jurisdiction,    //观看权限 1默认可见 2不可见
                 this.ruleForm.adminClass = result.data.result.admin_classify_jurisdiction,    //管理员自主分类权限 1有权限 2无权限
-                this.ruleForm.adminRecom = result.data.result.admin_recommend_jurisdiction     //管理员自主推荐权限 1有权限 2无权限
-
+                this.ruleForm.adminRecom = result.data.result.transfer     //管理员自主推荐权限 1有权限 2无权限
+                console.log('从视频管理过来：', this.ruleForm)
                 if(result.data.result.shooting_country == '国内' ){
                     this.showPlace = true  // 显示城市的三级联动 
                     this.getAllProvince()

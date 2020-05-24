@@ -23,7 +23,7 @@
                             <el-option
                                 v-for="item in options2"
                                 :key="item.id"
-                                :label="item.column_name"
+                                :label="item.name"
                                 :value="item.id">
                             </el-option>
                         </el-select>
@@ -221,7 +221,7 @@ export default {
 
         }).then(result => {
             console.log(result)
-            this.options2 = result.data.result
+            this.options2 = result.data.result[0]
         })
     }
 }

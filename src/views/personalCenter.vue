@@ -124,7 +124,7 @@
                     </div>
                 </button>
 
-                <!-- <button class="leftBotton" @click="jump5()">
+                 <button class="leftBotton" @click="jump5()">
                     <div class="changDiv" v-if="checkPag == 5"  >
                         <div class="myDiv" style="background-color:#ebf8f5">
                             <div class="myDiv2" >
@@ -145,7 +145,7 @@
                     </div>
                 </button>
 
-                <button class="leftBotton" @click="jump9()">
+                <!-- <button class="leftBotton" @click="jump9()">
                     <div class="changDiv" v-if="checkPag == 9"  >
                         <div class="myDiv" style="background-color:#ebf8f5">
                             <div class="myDiv2" >
