@@ -175,7 +175,7 @@ export default {
         flex:50%;
         /* width:420px; */
         /* height: 480px; */
-        background-image: url('../images/loginbg518.png');
+        /* background-image: url('../images/loginbg518.png'); */
     }
     .right{
         flex:50%;

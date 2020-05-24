@@ -3,6 +3,9 @@ import axios from 'axios'
 axios.defaults.headers.common['Authorization'] = 'AUTH_TOKEN'
 
 const Axios = axios.create({
+    // 线上地址
+    // baseURL: "http://39.106.98.246/api/v1",
+    // 测试地址
     baseURL: "/api",
     timeout: 5000
 })

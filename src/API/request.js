@@ -10,7 +10,9 @@ const Axios = axios.create({
 // creatr()在原有的对象上创建新的对象，包含原有的属性以及数据
 // const  声明一个无法更改的常量
 const service = axios.create({
-  // baseURL: process.env.BASE_URL,  // api的base_url
+  // 线上地址
+  // baseURL: "http://39.106.98.246/api/v1",
+  // 测试地址
   baseURL: "/api",
   timeout: 5000, // 请求超时时间
 })
