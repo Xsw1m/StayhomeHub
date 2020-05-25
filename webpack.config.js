@@ -39,7 +39,7 @@ module.exports = {
         new htmlWebpackPlugin({
             template:path.join(__dirname, './src/index.html'),//指定模板文件路径
             filename:'index.html',  //设置生成的内存页面名称
-            favicon:'./src/images/ficon.jpg',   //图标
+            favicon:'./src/images/ficon.png',   //图标
             minify:{
                 removeComments:true,       //移除HTML中的注释
                 collapseWhitespace:true,    //删除空白符和换行符
