@@ -766,10 +766,10 @@ export default {
         bannertovideo(data) {
             console.log(data)
             // if(data.user_watch_jurisdiction === 1){
-            //     var person = {
-            //         videoid: data.id
-            //     }
-            //     this.$router.push({name:'video',query:person})
+                var person = {
+                    videoid: data.id
+                }
+                this.$router.push({name:'video',query:person})
             // }else{
             //     this.$refs.child.chang()
             //     this.videoId = data.id

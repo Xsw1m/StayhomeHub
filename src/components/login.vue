@@ -1,7 +1,7 @@
 <template>
     <div class="loginContainer" >
         <div class="left" >
-            <img src="../images/loginbg2.jpg" alt="" style="width:100%;height:100%">
+            <!--<img src="../images/loginbg2.jpg" alt="" style="width:100%;height:100%">-->
         </div>
         <div class="right" >
             <span class="title" >StayhomeHub 登录</span>
@@ -173,9 +173,11 @@ export default {
     } */
     .left{
         flex:50%;
-        /* width:420px; */
-        /* height: 480px; */
-        /* background-image: url('../images/loginbg518.png'); */
+        width:420px; 
+        height: 480px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-image: url('https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com/background/af0704c4-loginbg2.jpg');
     }
     .right{
         flex:50%;

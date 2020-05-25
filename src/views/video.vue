@@ -27,8 +27,8 @@
                                 src="../images/myCollection-hover.png" alt="" 
                                 style="width:1.25vw;height:1.25vw"
                                 @click="chang(videoInfor.is_collect = !videoInfor.is_collect),changColl(videoInfor.is_collect)">
-                            <img class="aSty" @click="downpopup()" v-if="checkDown" src="../images/video-down.png" alt="" style="width:1.25vw;height:1.25vw">
-                            <img class="aSty" @click="downpopup()" v-if="!checkDown" src="../images/video-down.png" alt="" style="width:1.25vw;height:1.25vw">
+                            <!-- <img class="aSty" @click="downpopup()" v-if="checkDown" src="../images/video-down.png" alt="" style="width:1.25vw;height:1.25vw">
+                            <img class="aSty" @click="downpopup()" v-if="!checkDown" src="../images/video-down.png" alt="" style="width:1.25vw;height:1.25vw"> -->
 
                             </div>
                         </div>
@@ -78,14 +78,14 @@
                 </div>
             </div>
             <el-dialog
-            title="分享申请"
+            title="请填写举报理由"
             :visible.sync="dialogVisible"
             :before-close="handleClose"
             >
               <el-form :model="temp" ref="dataForm" :rules="rules" label-width="80px">
                 <el-row>
                 <el-col :span="20">
-                <el-form-item label="分享意图" prop="intention">
+                <el-form-item label="举报理由" prop="intention">
                   <el-input
                     type="textarea"
                     :rows="2"
@@ -98,8 +98,8 @@
                 </el-row>
                 <el-row>
                 <el-col :span="20">
-                <el-form-item label="分享说明" prop="explain">
-                  <el-checkbox v-model="temp.explain" label= "number" :false-label="0" :true-label="1">分享者需对分享内容的使用时长、用途、下载等全流程负责，如因此造成任何问题由分享者自行承担
+                <el-form-item label="举报确认" prop="explain">
+                  <el-checkbox v-model="temp.explain" label= "number" :false-label="0" :true-label="1">感谢您的举报！StayHomeHub视频网站会因为你的举报，变得更好♥！
                   </el-checkbox>
                 </el-form-item>
                 </el-col>
@@ -304,21 +304,23 @@ export default {
           }
         },
         submitShareForm(temp) {
-          this.$refs['dataForm'].validate((valid) => {
-              console.log(valid)
-              if (valid) {
-                service.post(configAPI.share_apply, qs.stringify({
-                    video_id: this.videoId,
-                    apply_reason: temp.intention
-                })).then((result) => {
-                    console.log(result)
-                    this.dialogVisible = false
-                    this.$message.success('已提交视频分享,请等待后台审核通过! ')
-                }).catch((err) => {
-                    console.log(err)
-                })
-              }
-          })
+        //   this.$refs['dataForm'].validate((valid) => {
+        //       console.log(valid)
+        //       if (valid) {
+        //         service.post(configAPI.share_apply, qs.stringify({
+        //             video_id: this.videoId,
+        //             apply_reason: temp.intention
+        //         })).then((result) => {
+        //             console.log(result)
+        //             this.dialogVisible = false
+        //             this.$message.success('已提交视频分享,请等待后台审核通过! ')
+        //         }).catch((err) => {
+        //             console.log(err)
+        //         })
+        //       }
+        //   })
+            this.dialogVisible = false
+            this.$message.success('已提交视频举报信息,请等待后台管理员审核! ')
         },
         handleClose(done) {
           this.$confirm('确认关闭？')

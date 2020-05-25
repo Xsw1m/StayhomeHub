@@ -32,7 +32,7 @@ export default {
         padding-top: 0.00001px;
         height: 100%;
         /* background-color:rgb(213, 241, 237); */
-        background-image: url('../images/loginbg1.jpg') ;
+        background-image: url('https://stayhomehub-1258210079.cos.ap-beijing.myqcloud.com/background/58b0bf8b-loginbg1.jpg') ;
         background-size: 100% 100%;
         box-sizing: border-box;
         display:flex; 
