@@ -99,8 +99,8 @@
                                             @click="iscollect(pro)"
                                             >
                                             </div>
-                                            <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
-                                            </div>
+                                            <!-- <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -139,8 +139,8 @@
                                             @click="iscollect(pro)"
                                             >
                                             </div>
-                                            <div class="personal-Record-down floorIcon2" @click="downpopup(pro.id)">
-                                            </div>
+                                            <!-- <div class="personal-Record-down floorIcon2" @click="downpopup(pro.id)">
+                                            </div> -->
                                         </div>
                                         <div class="buttonDiv2">
                                             <button @click="getVideo(pro)">
@@ -192,9 +192,9 @@ export default {
       total: 0,
       pagesize: 14,
       page: 1,
-      year: 0,
+      year: 'all',
       allyear: [
-        { item: '每日', time_buckets: 'day' }, { item: '每周', time_buckets: 'week' }, { item: '每月', time_buckets: 'month' }, { item: '每年', time_buckets: 'year' }, { item: '全部', time_buckets: 'all' }
+        { item: '全部', time_buckets: 'all' }, { item: '每日', time_buckets: 'day' }, { item: '每周', time_buckets: 'week' }, { item: '每月', time_buckets: 'month' }, { item: '每年', time_buckets: 'year' }
       ],
       propaganda: [],
       listid: 'collect',
@@ -273,7 +273,7 @@ export default {
       this.isFloor = 0
     },
     get_allyear () {
-      this.year = 0
+      this.year = 'all'
     },
     getyear (id) {
       this.year = id
@@ -413,7 +413,7 @@ export default {
       console.log('listid发生了变化', newVal)
       this.page = 1
       this.category = this.listid
-      this.year = 0
+      this.year = 'all'
       service.get(configAPI.getvideolist, {
           params: {
             rank: this.listid,
@@ -681,7 +681,7 @@ margin-right: 2.701%;
         padding:2% 0 2% 25%;
         box-sizing:border-box;
         display:flex;
-        justify-content:space-between
+        justify-content:center;
     }
     .floorIcon{
         width:25%;height:100%;

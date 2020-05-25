@@ -69,7 +69,7 @@
     <div class="function">
         <div class="history" @click="toplayRecord" tabindex="0"></div>
         <div class="collection" @click="tomyCollection" tabindex="0"></div>
-        <div class="download" @click="tomyDown" tabindex="0"> </div>
+        <!-- <div class="download" @click="tomyDown" tabindex="0"> </div> -->
         <div class="upload">
             <upload-drop></upload-drop>
         </div>
@@ -404,7 +404,7 @@ float: left;
     background-size:100% 100%;
     width: 4.1%;
     height: 1.19791667vw;
-    margin: 0 4.8% 0 4.8%;
+    margin: 0 4.8% 0 20.8%;
 }
 .collection{
     cursor:pointer;

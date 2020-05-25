@@ -211,7 +211,8 @@ export default {
                 this.$message.success({
                     dangerouslyUseHTMLString: true,
                     duration:6000,
-                    message:'手机验证码服务尚未开通，默认手机验证码为 <strong>" 1234 "</strong>'
+                    // message:'手机验证码服务尚未开通，默认手机验证码为 <strong>" 1234 "</strong>'
+                    message:'请查收并填写短信验证码♥'
                 })
 
                 this.shoeTip = false

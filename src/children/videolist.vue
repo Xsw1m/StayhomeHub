@@ -96,8 +96,8 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
-                                    </div>
+                                    <!-- <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    </div> -->
                                 </div>
                             </div>
                     </div>
@@ -137,8 +137,8 @@
                             @click="iscollect(pro)"
                             >
                             </div>
-                            <div class="personal-Record-down floorIcon2" @click="downpopup(pro.id)">
-                            </div>
+                            <!-- <div class="personal-Record-down floorIcon2" @click="downpopup(pro.id)">
+                            </div> -->
                         </div>
                         <div class="buttonDiv2">
                             <button @click="getVideo(pro)">
@@ -313,7 +313,7 @@ export default {
                 service.get(configAPI.getvideolist,{
                     params: {
                                 'category_id': this.category,
-                                'filter[status]': 1,
+                                'filter[status]': 2,
                                 'page':this.page,
                                 'pagesize':this.pagesize,
                                 'time_buckets': this.year,
@@ -336,7 +336,7 @@ export default {
                 service.get(configAPI.getvideolist,{
                     params: {
                                 'category_id': this.category,
-                                'filter[status]': 1,
+                                'filter[status]': 2,
                                 'page':this.page,
                                 'pagesize':this.pagesize,
                             }
@@ -371,7 +371,7 @@ export default {
                 service.get(configAPI.getvideolist,{
                     params: {
                         'category_id': this.listid,
-                        'filter[status]': 1,
+                        'filter[status]': 2,
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -408,7 +408,7 @@ export default {
             service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': this.listid,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page':this.page,
                     'pagesize':this.pagesize,
                 }
@@ -447,7 +447,7 @@ export default {
             service.get(configAPI.getvideolist,{
             params: {
                 'category_id': this.listid,
-                'filter[status]': 1,
+                'filter[status]': 2,
                 'page':this.page,
                 'pagesize':this.pagesize,
             }
@@ -470,7 +470,7 @@ export default {
             service.get(configAPI.getvideolist,{
                 params: {
                         'category_id': this.category,
-                        'filter[status]': 1,
+                        'filter[status]': 2,
                         'time_buckets': this.year,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -491,7 +491,7 @@ export default {
             service.get(configAPI.getvideolist,{
                 params: {
                         'category_id': this.category,
-                        'filter[status]': 1,
+                        'filter[status]': 2,
                         // 'time_buckets': this.year
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -518,7 +518,7 @@ export default {
                 service.get(configAPI.getvideolist,{
                     params: {
                         'category_id': this.category,
-                        'filter[status]': 1,
+                        'filter[status]': 2,
                         'time_buckets': this.year,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -536,7 +536,7 @@ export default {
                 service.get(configAPI.getvideolist,{
                     params: {
                         'category_id': this.category,
-                        'filter[status]': 1,
+                        'filter[status]': 2,
                         'time_buckets': this.year,
                         'page':this.page,
                         'pagesize':this.pagesize,
@@ -555,7 +555,7 @@ export default {
                 service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': this.listid,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page':this.page,
                     'pagesize':this.pagesize,
                 }
@@ -654,7 +654,7 @@ export default {
         padding:2% 0 2% 25%;
         box-sizing:border-box;
         display:flex;
-        justify-content:space-between
+        justify-content:center;
     }
     .floorIcon{
         width:25%;height:100%;

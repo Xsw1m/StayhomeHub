@@ -61,9 +61,9 @@
                                     >
 
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(sel.id)">
+                                    <!-- <div class="personal-Record-down floorIcon" @click="downpopup(sel.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -121,9 +121,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -179,9 +179,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -237,9 +237,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -295,9 +295,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -353,9 +353,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -411,9 +411,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -469,9 +469,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -527,9 +527,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -585,9 +585,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -643,9 +643,9 @@
                                     @click="iscollect(pro)"
                                     >
                                     </div>
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(pro.id)">
 
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                     </div>
@@ -807,7 +807,7 @@ export default {
         this.judge()
         // 获取焦点图
         service.get(configAPI.bannerimg,{
-            'filter[status]': 1,
+            'filter[status]': 2,
             'include': 'video'
         }).then((result) => {
             console.log('banner: ')
@@ -829,7 +829,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 1,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -844,7 +844,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 2,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -858,7 +858,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 3,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -872,7 +872,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 4,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -886,7 +886,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 5,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -900,7 +900,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 6,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -914,7 +914,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 7,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -928,7 +928,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 8,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -942,7 +942,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 9,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -956,7 +956,7 @@ export default {
         service.get(configAPI.getvideolist,{
                 params: {
                     'category_id': 10,
-                    'filter[status]': 1,
+                    'filter[status]': 2,
                     'page': 1,
                     'pagesize':5,
                 }
@@ -1038,7 +1038,7 @@ export default {
         padding:2% 0 2% 25%;
         box-sizing:border-box;
         display:flex;
-        justify-content:space-between
+        justify-content:center;
     }
     .floorIcon{
         width:25%;height:100%;

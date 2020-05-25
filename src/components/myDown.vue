@@ -74,9 +74,9 @@
 
                                     </div>
                                     <!-- 是否下载 -->
-                                    <div class="personal-Record-down floorIcon" @click="downpopup(item.id)">
+                                    <!--<div class="personal-Record-down floorIcon" @click="downpopup(item.id)">
 
-                                    </div>
+                                    </div>-->
                                     <div class="personal-Record-del floorIcon" @click="delThisColl(item.record_id,i)">
 
                                     </div>
@@ -408,7 +408,7 @@ export default {
         border-radius: 15px
     }
     .iconDiv{
-        width:59.7%;height:100%;padding:2% 0 2% 18.1%;box-sizing:border-box;display:flex;justify-content:space-between
+        width:59.7%;height:100%;padding:2% 0 2% 18.1%;box-sizing:border-box;display:flex;justify-content:center;
     }
     .floorIcon{
         width:20%;height:100%;

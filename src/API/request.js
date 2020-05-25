@@ -11,9 +11,9 @@ const Axios = axios.create({
 // const  声明一个无法更改的常量
 const service = axios.create({
   // 线上地址
-  // baseURL: "http://39.106.98.246/api/v1",
+  baseURL: "http://39.106.98.246/api/v1",
   // 测试地址
-  baseURL: "/api",
+  // baseURL: "/api",
   timeout: 5000, // 请求超时时间
 })
 

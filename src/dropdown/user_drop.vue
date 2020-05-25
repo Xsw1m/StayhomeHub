@@ -66,7 +66,12 @@ export default {
                     window.localStorage.removeItem('authorization_token')
                     Message.success('您已成功退出登录！')
                     this.$router.push('/login')
-                    
+                } else if (status === 500) {
+                    window.localStorage.removeItem('authorization_token')
+                    Message.success('您已成功退出登录！')
+                    this.$router.push('/login')
+                } else {
+                    console.log('联系技术人员')
                 }
             }).catch((err) => {
                 

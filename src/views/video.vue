@@ -281,7 +281,7 @@ export default {
             service.get(configAPI.recommend_url,{
             params: {
                 'category_id': id,
-                'filter[status]': 1,
+                'filter[status]': 2,
                 'page': 1,
                 'pagesize':4,
             }

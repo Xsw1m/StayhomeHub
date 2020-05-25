@@ -120,15 +120,7 @@ export default {
             paginationNumber:0,
             page:'',
             pagesize:'',
-            data:{
-            //     [
-            //     {id:1,title:'互联网时代的海尔',imgSrc:require('../images/imgTe3.jpg'),time:'01:33:33',class:'人单合一',value:'0'},
-            //     {id:2,title:'你需要，我送到',imgSrc:require('../images/imgTe4.jpg'),time:'02:33:33',class:'人单合二',value:'1'},
-            //     {id:3,title:'在海尔，一分钟会发生什么',imgSrc:require('../images/imgTe5.jpg'),time:'03:33:33',class:'人单合三',value:'2'},
-            //     {id:4,title:'在海尔，一分钟会发生什么',imgSrc:require('../images/imgTe5.jpg'),time:'03:33:33',class:'人单合三',value:'2'},
-            //     {id:5,title:'在海尔，一分钟会发生什么',imgSrc:require('../images/imgTe5.jpg'),time:'03:33:33',class:'人单合三',value:'2'},
-            // ]
-            },
+            data:{},
             options: [{
                 value: 1,
                 label: '由新到旧'
@@ -193,8 +185,8 @@ export default {
             // console.log(this.value)
             let params = {};
             if (this.value)  params["time_mode"] = this.value
-            if (this.value2) params["column_id"] = this.value2
-            if (this.value3) params["status"] = this.value3
+            if (this.value2) params["filter[category_id]"] = this.value2
+            if (this.value3) params["filter[status]"] = this.value3
             if (this.page) params["page"] = this.page
             if (this.pagesize) params["pagesize"] = this.pagesize
 

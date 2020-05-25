@@ -29,7 +29,7 @@
                     <span style="font-size:0.9375vw;font-weight:bold;">{{item.title}}</span>
                     <div style="width:20%;margin:3.4% 0 0 1%;display:flex;">
                         <span style="font-size:0.73vw;color:#999999;margin-right:12%;">标签:</span>
-                        <span style="font-size:0.73vw;">{{item.column_name}}</span>
+                        <span style="font-size:0.73vw;">{{item.category.name}}</span>
                     </div>
                     <div style="width:20%;margin:2.27% 0 0 1%;display:flex;">
                         <span style="font-size:0.73vw;color:#999999;margin-right:12%;">时长:</span>
@@ -54,10 +54,10 @@
                             <img src="../img/collection_style.png" style="width:30%;cursor:pointer;" @click="iscollect(item)">
                             <span style="font-size:0.625vw;color:#37BAA0;cursor:pointer;" @click="iscollect(item)">收藏</span>
                         </div>
-                        <div style="width:8%;display:flex;align-items:center;justify-content: space-between;" >
+                        <!-- <div style="width:8%;display:flex;align-items:center;justify-content: space-between;" >
                             <img src="../img/download.png" style="width:35%;cursor:pointer;" @click="downpopup(item.id)">
                             <span style="font-size:0.625vw;color:#999999;cursor:pointer;" @click="downpopup(item.id)">下载</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -139,40 +139,9 @@ export default {
             which_board:'1',//什么类型的榜单
             //收藏是否收藏了
             tags:[
-                {id:1,value:'综合'},{id:2,value:'管理学堂'},{id:3,value:'人单合一'},{id:4,value:'链群动态'},
+                {id:1,value:'娱乐'},{id:2,value:'音乐'},{id:3,value:'舞蹈'},{id:4,value:'生活'},
             ],
-            search_details:[
-            //     {
-            //     "id": 23,
-            //     "cover": "http://hinews-prod.oss-cn-beijing.aliyuncs.com/cover/ibYBcJ_1566874274614.png",
-            //     "title": "全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！",
-            //     "introduction": "全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！全球首个基于场景生态的智慧厨房互联工厂，诞生在海尔！",
-            //     "video_duration": "00:08:51",
-            //     "user_watch_jurisdiction": 1,
-            //     "is_collect": true,
-            //     "column_name": "集团专题片"
-            // },
-            // {
-            //     "id": 24,
-            //     "cover": "http://hinews-prod.oss-cn-beijing.aliyuncs.com/cover/mRJS6r_1566874197293.png",
-            //     "title": "hiNews TV | 20190827期",
-            //     "introduction": "hiNe20190827期ws TV | hiNe20190827期ws TV | hiNe20190827期ws TV | hiNe20190827期ws TV | hiNe20190827期ws TV | hiNe20190827期ws TV | hiNe20190827期ws TV |《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路 ",
-            //     "video_duration": "00:06:34",
-            //     "user_watch_jurisdiction": 1,
-            //     "is_collect": false,
-            //     "column_name": "集团宣传片"
-            // },
-            // {
-            //     "id": 25,
-            //     "cover": "http://hinews-prod.oss-cn-beijing.aliyuncs.com/cover/cmN3ae_1566808627236.png",
-            //     "title": "《激荡中国》海尔篇：讲述张首席的创业之路",
-            //     "introduction": "《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路《激荡中国》海尔篇：讲述张首席的创业之路",
-            //     "video_duration": "00:06:15",
-            //     "user_watch_jurisdiction": 1,
-            //     "is_collect": false,
-            //     "column_name": "集团专题片"
-            // },
-            ],
+            search_details:[],
             //榜单的类别具体内容
             board:[]
         }
@@ -190,7 +159,21 @@ export default {
             this.which_board = id
             console.log("选择榜单类型"+this.which_board)
             //发送请求 获取榜单类型：
-            // axios-> this.board = result.data  再发送请求->this.which_board = result.data.result[0].whice_board
+            service.get(configAPI.getvideolist,{
+                params:{
+                    'category_id': id,
+                    'filter[status]': 2,
+                    'page':1,
+                    'pagesize':10,
+                }
+            }).then((result) => {
+                // let data = result.data
+                // this.board = data.result
+                this.board = result.data.result.list
+                console.log('热搜榜', this.board)
+            }).catch((err) => {
+                console.log('热搜榜出错', err)
+            })
         },
         //跳转视频详情页的方法，添加了是否含有观看权限
         getVideo(data){
@@ -238,11 +221,29 @@ export default {
         });
         //更新数据
       },
+      gethotlist(id){
+          service.get(configAPI.getvideolist,{
+                params:{
+                    'category_id': id,
+                    'filter[status]': 2,
+                    'page':1,
+                    'pagesize':10,
+                }
+            }).then((result) => {
+                // let data = result.data
+                // this.board = data.result
+                this.board = result.data.result.list
+                console.log('热搜榜', this.board)
+            }).catch((err) => {
+                
+            })
+      },
       getdata(){
           this.page = 1
             service.get(configAPI.getvideolist,{
             params: {
                         'filter[title]': this.search_result,
+                        'include': 'category',
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -265,6 +266,7 @@ export default {
             service.get(configAPI.getvideolist,{
             params: {
                         'filter[title]': this.search_result,
+                        'include': 'category',
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -299,6 +301,7 @@ export default {
         service.get(configAPI.getvideolist,{
             params: {
                         'filter[title]': this.search_result,
+                        'include': 'category',
                         'page':this.page,
                         'pagesize':this.pagesize,
                     }
@@ -314,18 +317,7 @@ export default {
             }).catch((err) => {
                 
             });
-        service.get(configAPI.getsearch_hot,{
-            params:{
-                'size':10
-            }
-        }).then((result) => {
-            // let data = result.data
-            // this.board = data.result
-            this.board = result.data.result
-            console.log(result)
-        }).catch((err) => {
-            
-        });
+            this.gethotlist(1)
         }
     },
     watch:{

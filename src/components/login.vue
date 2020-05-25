@@ -5,7 +5,7 @@
         </div>
         <div class="right" >
             <span class="title" >StayhomeHub 登录</span>
-            <input type="text" id="mobileInput" class="mobileInput" placeholder="请输入注册手机号或者工号" v-model="mobile">
+            <input type="text" id="mobileInput" class="mobileInput" placeholder="请输入注册手机号" v-model="mobile">
             <input type="password" class="passwordInput"  placeholder="请输入密码" v-model="password" @keyup.enter="submit()">
             <!-- <span class="loginFalse">{{msg}}</span> -->
             <div style="width:340px;height:17px;position:absolute;top:258px">
