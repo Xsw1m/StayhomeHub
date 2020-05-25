@@ -63,6 +63,9 @@ export default {
         // console.log(result)
         const { data } = result
         console.log('登陆成功', data)
+        if (data.code == 400) {
+          this.$message.error(data.message)
+        }
         var Authorization = data.result.access_token
         localStorage.setItem('authorization_token', Authorization)
         localStorage.setItem('real_name', data.result.user_info.name)
