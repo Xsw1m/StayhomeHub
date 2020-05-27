@@ -6,7 +6,7 @@
         <div class="banner">
             <el-carousel trigger="click" height="23.95834vw">
             <el-carousel-item v-for="(item,index) in bannerimg" :key="index+1">
-                <img :src="item.pic" alt="" style="height:100%;width:100%;" @click="bannertovideo(item)">
+                <img :src="item.cover" alt="" style="height:100%;width:100%;" @click="bannertovideo(item)">
             </el-carousel-item>
             </el-carousel>
         </div>
