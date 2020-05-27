@@ -80,7 +80,7 @@
                         <div >
                             <div class="videoAdmin_info_left_bottom_class" >
                                 <span style="color:#999999">视频分类：</span>
-                                <span style="">{{item.column_name}}</span>
+                                <span style="">{{item.category.name}}</span>
                             </div>
                             <div class="videoAdmin_info_left_bottom_operate">
                                 <!-- style="visibility: hidden;" -->
@@ -190,24 +190,24 @@ export default {
             if (this.page) params["page"] = this.page
             if (this.pagesize) params["pagesize"] = this.pagesize
 
-            service.get(configAPI.getVideoAdmin_url , {
+            service.get(configAPI.getVideoAdmin_url +'?include=category' , {
                 params
             }).then(result=>{
                 this.data = result.data.result.list
                 this.paginationNumber =  result.data.result.total
-                console.log(result)
+                console.log('视频管理详情',result)
             })
         },
     },
     created(){
         this.sedPag()
-        service.get(configAPI.getVideoAdmin_url ,{
+        service.get(configAPI.getVideoAdmin_url + '?include=category',{
 
         }).then(result=>{
             this.data = result.data.result.list
             this.allNewsNumber = result.data.result.total
             this.paginationNumber = this.allNewsNumber
-            console.log(result)
+            console.log('视频管理详情', result)
         })
         service.get(configAPI.getVideoAdminClass_url,{
 

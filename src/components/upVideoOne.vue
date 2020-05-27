@@ -171,7 +171,7 @@
                         <el-radio :label="1">所有人可见</el-radio>
                         <el-radio :label="2">所有人不可见</el-radio>
                     </el-radio-group>
-                    <font size="2" color="#d1ced6">所有人不可见：用户需在线申请，待审核通过后方可观看视频</font>
+                    <!-- <font size="2" color="#d1ced6">所有人不可见：用户需在线申请，待审核通过后方可观看视频</font> -->
                 </el-form-item> 
 
                 <el-form-item label="允许转载" prop="adminRecom">
@@ -181,7 +181,7 @@
                         <el-radio :label="1">允许</el-radio>
                         <el-radio :label="2">不允许</el-radio>
                     </el-radio-group>
-                    <font size="2" color="#d1ced6">不允许后管理员将无法推荐视频到首页精选栏目</font>
+                    <!-- <font size="2" color="#d1ced6">不允许后管理员将无法推荐视频到首页精选栏目</font> -->
                 </el-form-item>
 
                 
