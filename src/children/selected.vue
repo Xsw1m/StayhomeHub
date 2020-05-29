@@ -806,11 +806,10 @@ export default {
     created(){
         this.judge()
         // 获取焦点图
-        service.get(configAPI.bannerimg,{
-            'filter[status]': 1,
-            'include': 'video'
-        }).then((result) => {
-            console.log('banner: ')
+        service.get(configAPI.bannerimg + '?filter[status]=1'
+            // 'include': 'video'
+        ).then((result) => {
+            console.log('banner: ', result.data)
             this.bannerimg = result.data.result
             // console.log('banner详情信息', this.bannerimg)
         }).catch((err) => {
