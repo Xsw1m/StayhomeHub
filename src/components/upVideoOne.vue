@@ -457,10 +457,25 @@ export default {
             var duration;
             let add_this = this
             audioElement.addEventListener("loadedmetadata", function(_event){
-                
                 duration = audioElement.duration;
-                add_this.video_duration  = duration
-                console.log('监听视频总时长为' + add_this.video_duration + 's');
+                function time() {
+                    var hour = Math.floor(duration / 3600 % 24)
+                    var min = Math.floor(duration / 60 % 60)
+                    var sec = Math.floor(duration % 60)
+                    if (hour < 10) {
+                        hour = '0' + hour
+                    }
+                    if (min < 10) {
+                        min = '0' + min
+                    }
+                    if (sec < 10) {
+                        sec = '0' + sec
+                    }
+                    return hour + ':' + min + ':' + sec
+                }
+                console.log('时间戳更改', time())
+                add_this.video_duration  = time()
+                console.log('监听视频总时长为:' + add_this.video_duration );
             });
             // console.log('视频总时长为' + this.video_duration);
 
