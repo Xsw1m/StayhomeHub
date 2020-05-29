@@ -130,7 +130,6 @@ export default {
             isseen:'',
             operate:'',
             videoId:'',
-
             seen: false,
             search_result:'',
             total: 0,//总视频数量，

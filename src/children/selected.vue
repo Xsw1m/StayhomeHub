@@ -807,7 +807,7 @@ export default {
         this.judge()
         // 获取焦点图
         service.get(configAPI.bannerimg,{
-            'filter[status]': 2,
+            'filter[status]': 1,
             'include': 'video'
         }).then((result) => {
             console.log('banner: ')
