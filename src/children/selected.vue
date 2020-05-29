@@ -767,7 +767,7 @@ export default {
             console.log(data)
             // if(data.user_watch_jurisdiction === 1){
                 var person = {
-                    videoid: data.id
+                    videoid: data.video_id
                 }
                 this.$router.push({name:'video',query:person})
             // }else{
