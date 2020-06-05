@@ -9,7 +9,7 @@
         <div class="main" style="">
            <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-form-item prop="name" style="margin-bottom:0px;height:55px;width:100%">
-                    <el-input class="outUserInput" v-model="ruleForm.name" placeholder="请输入真实姓名"></el-input>
+                    <el-input class="outUserInput" v-model="ruleForm.name" placeholder="请输入用户昵称（暂时不支持中文）"></el-input>
                 </el-form-item>
                 <el-form-item prop="mobile" style="margin-bottom:0px;height:55px;width:100%">
                     <el-input class="outUserInput" v-model="ruleForm.mobile" placeholder="请输入手机号"></el-input>
@@ -228,6 +228,7 @@ export default {
             ).then(result => {
               // console.log('错误信息1', result)
               if (result.data.code === 200) {
+                  this.$message.success('注册成功！等待跳转登录')
                   this.registerSucc(formName)
               } else {
                   console.log('错误信息1', result)
@@ -248,16 +249,19 @@ export default {
       })
     },
     registerSucc (formName) {
-      this.$confirm('注册信息已提交，请等待审核通过！ ')
-        .then(() => {
-          // done();
-          console.log('ok')
-          this.$router.push({ path: '/login' })
-        })
-        .catch(() => {
-          console.log('no')
-          this.$refs[formName].resetFields()
-        })
+      // this.$confirm('注册信息已提交，请等待审核通过！ ')
+      //   .then(() => {
+      //     // done();
+      //     console.log('ok')
+      //     this.$router.push({ path: '/login' })
+      //   })
+      //   .catch(() => {
+      //     console.log('no')
+      //     this.$refs[formName].resetFields()
+      //   })
+      setTimeout(()=> {
+        this.$router.push({ path: '/login' })
+      }, 1000)
     },
     userAg () {
       this.$router.push({ path: '/userAgreement' })
