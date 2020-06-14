@@ -143,8 +143,8 @@ export default {
             var response = ''
             console.log('B视频文件params:', params)
             var cos = new COS({
-                SecretId: 'AKIDEmIr9A3Gn5Z7QkeYOyHJ5IGwc5HBmqkO',
-                SecretKey: 'cEcfV4LM7a6OP8ZtyniYo56qnBfsntpV',
+                SecretId: '', /* 个人腾讯云ID */
+                SecretKey: '' /* 个人腾讯Key */
             })
             var _this = this
             cos.putObject({
