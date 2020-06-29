@@ -27,6 +27,7 @@ export default {
         // 获取消息中心的提醒数量
         if(this.$store.state.news == 0){
             this.$store.dispatch('getdata')
+            console.log('获取消息数量', this.$store.state.news)
         }
     },
 }

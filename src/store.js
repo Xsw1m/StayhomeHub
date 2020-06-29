@@ -63,10 +63,12 @@ const store = new Vuex.Store({
     getdata () {
       service.get(configAPI.getAllNews_url, {
       }).then(result => {
+        console.log('获取消息1', this.state.news)
         result.data.result.list.forEach(element => {
-          console.log('', element)
+          // console.log('', element)
           if (element.status === 2) {
             this.state.news++
+            console.log('获取消息2', this.state.news)
           }
         })
       })
